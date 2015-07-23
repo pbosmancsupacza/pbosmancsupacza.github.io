@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Marked in the browser</title>
+  <script src="lib/marked.js"></script>
+</head>
+<body>
+  <!-- hidden frame for markdown content from content.md -->
+  <iframe
+    id="mdcontent" 
+    src="content.txt" 
+    style="display:none;">
+  </iframe>
+  <!-- processed html content goes here -->
+  <div id="content"></div>
+  <!-- process md to html -->
+  <script type="text/javascript">
+    function LoadFile() {
+      var oFrame = document.getElementById("mdcontent");
+      var strRawContents = oFrame.contentWindow.document.body.childNodes[0].innerHTML;
+      while (strRawContents.indexOf("\r") >= 0)
+        strRawContents = strRawContents.replace("\r", "");
+      alert(strRawContents);
+    }
+    document.getElementById('content').innerHTML =
+    marked('# Marked in browser\n\nRendered by **marked**.');
+  </script>
+</body>
+</html>
