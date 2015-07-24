@@ -84,11 +84,11 @@ class ClassName {
 ```
 ```c++
 // constructor 1:
-ClassName( /*parameterList1*/ ) {
+ClassName::className( /*parameterList1*/ ) {
 	// implementation...
 }
 // constructor 2:
-ClassName( /*parameterList1*/ ) {
+ClassName::ClassName( /*parameterList1*/ ) {
 	// implementation...
 }
 ```
