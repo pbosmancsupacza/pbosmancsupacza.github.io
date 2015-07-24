@@ -6,28 +6,16 @@
   <script src="lib/marked.js"></script>
 </head>
 <body>
-  <p>
-    <a href="./l2/index.html">View the slides...</a>
-  </p>
-  <!-- hidden frame for markdown content from content.md -->
-  <iframe
-    id="mdcontent" 
-    src="content.txt" 
-    style="display:none;">
-  </iframe>
   <!-- processed html content goes here -->
   <div id="content"></div>
   <!-- process md to html -->
   <script type="text/javascript">
-    function LoadFile() {
-      var oFrame = document.getElementById("mdcontent");
-      var strRawContents = oFrame.contentWindow.document.body.childNodes[0].innerHTML;
-      while (strRawContents.indexOf("\r") >= 0)
-        strRawContents = strRawContents.replace("\r", "");
-      alert(strRawContents);
-    }
+    var c = '# COS Notes and Slides\n' +
+            '### COS110\n' +
+            'Lecture 2 [notes](./110/2/notes.md) | [slides](./110/2/slides.html)\n\n' +
+            'Lecture 3 [notes](./110/3/notes.md) | [slides](./110/3/slides.html)\n'
     document.getElementById('content').innerHTML =
-    marked('# Marked in browser\n\nRendered by **marked**.');
+    marked(c);
   </script>
 </body>
 </html>
