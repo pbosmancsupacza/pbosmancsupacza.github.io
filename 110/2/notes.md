@@ -1,37 +1,5 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Title</title>
-    <meta charset="utf-8">
-    <style>
-      /*@import url(https://fonts.googleapis.com/css?family=Roboto);*/
-      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
-      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
-
-      body {
-        font-family: 'Droid Serif';
-      }
-      h1, h2, h3 {
-        /*font-family: 'Roboto';
-        font-weight: bold;
-      }
-      h2 {
-        font-style: italic;
-        font-size: 10px;*/
-      }
-      .remark-code, .remark-inline-code {
-        font-family: 'Ubuntu Mono';
-      }
-    </style>
-  </head>
-  <body>
-    <textarea id="source">
-
-class: center, middle
-
 # OO, Classes & Objects
 
----
 
 # This Lecture
 
@@ -39,22 +7,9 @@ class: center, middle
 2. Classes and Objects; also in C++
 3. Some Naming Conventions
 
----
 
 # Part 1: Object Oriented Programming
----
 
-## Data and Procedures
-
-```c++
-int inc(int i) {
-	return i+1;
-}
-
-int x = 99;
-x = inc(x);
-```
----
 ## Data and Procedures
 
 ```c++
@@ -65,26 +20,17 @@ int inc(int i) { // this is a procedure
 int x = 99; // this is data
 x = inc(x); // this is a procedure operating on data
 ```
----
 
-background-image: url(https://www.dropbox.com/s/bl3363ifk7qtciv/productionline.jpg?raw=1)
 ## Procedural Programming
 Procedural programming is *process*-oriented. At the top level,
 
 procedures manipulate data.
----
-
-background-image: url(https://www.dropbox.com/s/envrgl22pqofcjy/comeapart2.jpg?dl=0&raw=1)
-## Procedural Programming
-
----
 
 ## Problems with procedural programming
 - Function hierarchy is implied
   - but any user can call any function
 - Functions work with raw data
   - if data format changes, all client functions are out of whack
----
 
 ## Example problem
 Suppose a program keeps track of some data using a variable:
@@ -107,9 +53,7 @@ void doSomethingElse() {
 }
 // and so on.
 ```
----
 
-## Example problem
 Now, suppose the program gets changed.
 
 `data` is no longer stored in a variable, but in a text file.
@@ -123,7 +67,6 @@ textFile >> dataCopy;
 ```
 
 This must be done in every function that uses data!
----
 
 ## Object-Oriented programming
 At the top level, there are classes and objects which *encapsulate* data and procedures.
@@ -131,17 +74,14 @@ At the top level, there are classes and objects which *encapsulate* data and pro
 #### Main features:
 - Encapsulation
 - Data hiding
----
 
 ## Encapsulation and data hiding
 Encapsulation means that several data and procedures are contained in a single entity.
 
 Data hiding is the capability of an object to *hide* whatever it encapsulates from code outside the object.
----
 
 background-image: url(https://www.dropbox.com/s/mb6s7tp37p5yq63/radio1.jpg?dl=0&raw=1)
-## Encapsulation and data hiding
----
+
 ## Example problem -- solved!
 The `data` from the previous problem is *encapsulated* in an object called `dataObject`. It is hidden from outside code, so it cannot be corrupted. And the object provides an *interface* for interacting with the data, so outside code don't have to know how the data is represented internally.
 
@@ -162,8 +102,6 @@ public:
 
 Data dataObject;
 ```
----
-## Example problem -- solved!
 Now, instead of operating on the data directly, outside code can do something like this:
 ```c++
 void doSomething() {
@@ -180,8 +118,6 @@ void doSomethingElse() {
 }
 // and so on.
 ```
----
-## Example problem -- solved!
 If the *internal representation* of the data changes to being stored in a text file, only the `Data` class needs to change.
 ```c++
 class Data {
@@ -201,7 +137,6 @@ public:
 }
 ```
 The *interface* stays the same, so no outside code needs to change.
----
 
 ## Other advantages of OO
 #### Simple interfaces for complicated procedures
@@ -210,13 +145,11 @@ No matter how many sub-sub-subroutines are involved in an operation, the client 
 Many programmers often work on the same project. Interfaces act as contracts for how different software components should interact.
 #### Object reusability
 An object has a clear definition, purpose, set of functions, and (ideally) no side-effects. If it is useful in another context, it can be used safely.
----
 
 
 
 # Part Two: Classes and Objects
 ### And specifically, classes and objects in C++
----
 
 ## Classes and Objects
 The "entities" in which data and procedures are encapsulated in OO, are called *classes* and *objects*.
@@ -224,23 +157,10 @@ The "entities" in which data and procedures are encapsulated in OO, are called *
 Objects in software model real-world objects. E.g. a program that keeps track of books in a library can have one book object for each real book.
 
 Classes in software model classes of real-world objects. E.g. a `Book` class would define what attributes each book object in the above software has.
----
 
-## Classes and Objects
 Classes define the *types* of objects.
 
 Objects are *instantiations* of classes.
----
-background-image: url(https://www.dropbox.com/s/6605dqb6xlp2dqe/scissors.jpg?dl=0&raw=1)
----
-background-image: url(https://www.dropbox.com/s/nu04w75jl7gsfhc/tapes.jpg?dl=0&raw=1)
----
-background-image: url(https://www.dropbox.com/s/mrv01tdhz4mflmb/cameras.jpg?dl=0&raw=1)
----
-background-image: url(https://www.dropbox.com/s/mrv01tdhz4mflmb/cameras.jpg?dl=0&raw=1)
----
-background-image: url(https://www.dropbox.com/s/1ddvlz6omt0f7zb/transportation.jpg?dl=0&raw=1)
----
 
 ## Classes In C++: An Example You Already Know!
 ```c++
@@ -259,7 +179,6 @@ int length = name.length(); // call one of string's member functions;
 
 name.append(" Bosman"); // modify the internal data
 ```
----
 
 ## I canz make a class?
 To define a new class in C++, use the `class` keyword.
@@ -274,7 +193,6 @@ class ClassName {
 ```
 This defines a class called `ClassName`.
 **NB:** Remember the semicolon after the closing bracket!
----
 
 ## I can haz class memberz?
 The class above doesn't have any *members*... yet.
@@ -282,7 +200,6 @@ The class above doesn't have any *members*... yet.
 A member is something that the class encapsulates. Classes encapsulate *data* and *procedures*. So classes can have:
 - Member variables (data)
 - Member functions (procedures)
----
 ## Example
 ```c++
 class MessagePrinter() {
@@ -290,7 +207,6 @@ class MessagePrinter() {
 	void printMessage(); // member function
 };
 ```
----
 ## I can haz data hiding?
 OO should provide data hiding. C++ implements this using *access modifiers*.
 
@@ -299,7 +215,6 @@ An access modifier is a statement that changes the visibility of a class's membe
 Members can either be visible or invisible to outside code.
 
 To make a member visible, we use the modifier `public:`. To make a member invisible, we use `private:`.
----
 ## Access modifiers syntax
 Access modifiers affect all members on the lines following them, up to the next modifier.
 
@@ -319,7 +234,6 @@ private:
 What is `argh()`s visibility?
 
 Notice that any order is valid. But try to keep your members grouped by access.
----
 
 ## Intended usage
 In OO, objects usually hide their data, and define an *interface* through which clients can access the data. To do this in C++:
@@ -337,11 +251,9 @@ public:
 };
 ```
 Clients are not even allowed to set the value of `message`.
----
 
 ## #tbt
 Recall that, unlike `struct`s, classes' default access modifier is `private`.
----
 
 ## I can haz implementation?
 The member functions so far have only had *prototypes* - no implementation.
@@ -364,7 +276,6 @@ void Printer::print() {
 `Printer::` tells the compiler that the function is a member of the `Printer` class. `::` is called the scope resolution operator. **Note**: the return type is the first part of the line, *not* the scope resolution operator. Also **note**: implementation must follow declaration - you can't implement something that hasn't been declared yet.
 
 We will elaborate on other ways to provide implementation soon.
----
 
 ## Implementation
 The general format for the function header of a function definition outside a class:
@@ -373,7 +284,6 @@ ReturnType ClassName::functionName(Parameter1Type parameter1Name, ...) {
   // implementation...
 }
 ```
----
 
 ## const member functions
 Member functions can be declared to be `const`. This means they "promise" not to change anything. A `const` function will not compile if
@@ -391,7 +301,6 @@ void Printer::print() const {
 	//...
 }
 ```
----
 
 ## Accessors and Mutators
 In OO, member functions provide an interface through which clients can access member variables. It is very common for clients to want to know what value a variable has, or to change that value. Those two operations are often called **getting** and **setting**.
@@ -406,11 +315,9 @@ public:
 	void setName(string n);
 };
 ```
----
 
 ## Getters + const
 Getters shouldn't be allowed to modify anything, so they should be `const`.
----
 
 ## I canz make an object?
 Classes define types of objects, and objects are instantiations of classes. So the statement:
@@ -424,7 +331,6 @@ This is very similar to the statement:
 int i = 0;
 ```
 even though `int` is not a class (it is a *primitive type*). Classes are like types, and objects are like variables.
----
 
 ## Object instantiation
 The general form to instantiate an object is
@@ -432,7 +338,6 @@ The general form to instantiate an object is
 ClassName objectName;
 ```
 which instantiates a new object of type `ClassName`. The new object is called `objectName` and is an *instance* (hence "instantiation") of the class.
----
 
 ## I canz access memberz?
 A class defines which members an object will have. To access those members, use the **dot operator**, which is literally a dot.
@@ -456,7 +361,6 @@ myObject.memberVariable = 99;
 int oldValue = myObject.memberVariable++;
 cout << myObject.memberFunction();
 ```
----
 
 ## Only if you can access the members though!
 ```c++
@@ -473,7 +377,6 @@ cout << marvin.secretMemberVariable << endl;
 marvin.suspicousMemberFunction();
 ```
 The above code won't compile.
----
 
 ## Stale Data
 ```c++
@@ -495,7 +398,6 @@ public:
 	void setWidth(double w);
 };
 ```
----
 ## Stale Data
 ```c++
 // the getters just return their variables:
@@ -518,14 +420,9 @@ void Rectangle::setWidth(double newWidth) {
 	area = length * width; // NOTE THIS LINE!
 }
 ```
-Spot the problems.
----
 
-## Stale data
 `area` is a member variable that **depends** on the value of other variables. If `length` changes, `area` is no longer accurate and is said to be *stale*.
----
 
-## Stale data
 An elegant way to avoid the problem:
 - dependent variables are not stored as variables
 - instead, they are calculated each time they are needed
@@ -551,7 +448,6 @@ double Rectangle::getArea() const {
 	// guaranteed to be accurate or your money back
 }
 ```
----
 
 ## Pointers to Objects
 (It starts...)
@@ -562,7 +458,6 @@ MyClass anObject;
 MyClass *aPointer; // not an object, just space for an address
 aPointer = &anObject; // pointer now points to the object
 ```
----
 
 ## Smart Pointers to Objects
 Smart pointers (type `unique_ptr`) allow us to create pointers without worrying about memory management.
@@ -578,7 +473,6 @@ unique_ptr<Rectangle> aPointer(new Rectangle);
 3. the pointer can point to `Rectangle` objects
 4. `new Rectangle` allocates a new `Rectangle` object in memory and returns its address
 5. the pointer is initialised with the address of the new object; it points to it
----
 
 ## Separate class specification from implementation
 We've seen one way to provide implementation for member functions:
@@ -593,9 +487,7 @@ void MyClass::memberFunction() {
 ```
 
 All of this is in one file.
----
 
-## Separate class specification from implementation
 A better way of doing this is as follows:
 - class specification in one file
   - only the `class MyClass { ... };` part
@@ -609,9 +501,7 @@ A better way of doing this is as follows:
 - client code written in other files (main, mostly)
   - `#include` the header file
 	- are compiled and linked with the implementation files
----
 
-## Seperate class specification from implementation
 `printer.h`:
 ```c++
 #ifndef PRINTER_H
@@ -624,9 +514,7 @@ public:
 
 #endif
 ```
----
 
-## Seperate class specification from implementation
 `printer.cpp`:
 ```c++
 #include "printer.h"
@@ -637,9 +525,7 @@ void Printer::print() {
 	cout << "hello" << endl;
 }
 ```
----
 
-## Seperate class specification from implementation
 `main.cpp`:
 ```c++
 
@@ -657,7 +543,6 @@ g++ -c main.cpp -o main.o
 g++ -c printer.cpp -o printer.o
 g++ main.o printer.o -o main
 ```
----
 
 ## Inline Member Functions
 It is also possible to provide a member function's implementation in the class declaration. E.g.:
@@ -670,7 +555,6 @@ public:
 };
 ```
 We call `print` an *inline function*. No scope resolution operator is needed.
----
 
 ## Inline Member Functions
 The compiler may treat inline member functions differently, which may impact your program's performance.
@@ -686,271 +570,6 @@ But with inline functions, **inline expansion** takes place:
 
 (This is only done at the compiler's discretion)
 
-How would each approach impact performance?
----
-
-## I can haz initialization?
-In the `MessagePrinter` class, the `message` variable isn't initialized.
-```c++
-class MessagePrinter() {
-private:
-	string message; // don't allow clients to see/change the internal data
-public:
-	void printMessage(); // only allow clients to print the data
-};
-```
-How can we solve this?
----
-
-## Constructors
-To let us initialize objects for real, C++ has something built in called *constructors*.
-
-Constructors are special types of member functions.
-
-They are called automatically (and always) when an object is instantiated.
-
-We use them as initialization routines.
----
-
-## Constructors
-Constructor Example:
-```c++
-class Noisy {
-public:
-	Noisy(); // the constructor
-};
-```
-```c++
-Noisy::Noisy() {
-	cout << "Click!" << endl;
-}
-```
-Every time a `Noisy` object is created, the constructor (called `Noisy`) is called, and the message `Click` is printed.
----
-
-## Constructors
-Constructor example (continued):
-`main.cpp`
-```c++
-int main() {
-	cout << "about to instantiate..." << endl;
-	Noisy n1;
-	Noisy n2;
-	Noisy n3;
-	cout << "finished instantiating objects." << endl;
-	return 0;
-}
-```
-This will output:
-```
-about to instantiate...
-Click!
-Click!
-Click!
-finished instantiating objects.
-```
-Each object called the constructor when it was instantiated.
----
-
-## Constructors
-- Constructors have no return type. (Why?)
-- The name of a constructor is always the same as the name of the class.
-
-The general form is:
-```c++
-class ClassName {
-	ClassName( /*parameterList1*/ ); // constructor 1
-	ClassName( /*parameterList2*/ ); // constructor 2
-	// ...
-};
-```
-```c++
-// constructor 1:
-ClassName( /*parameterList1*/ ) {
-	// implementation...
-}
-// constructor 2:
-ClassName( /*parameterList1*/ ) {
-	// implementation...
-}
-```
-As you can see, constructors can have parameters, and a class can have multiple constructors. Like other functons, constructors can have multiple parameters, have default parameters, be declared inline, and be overloaded.
----
-
-## The Default Constructor
-The **default constructor** is the constructor with no parameters.
-```c++
-class ClassWithDefaultConstructor {
-	ClassWithDefaultConstructor() {
-		cout << "default constructor called!" << endl;
-	}
-};
-```
-The default constructor is called when an object is instantiated with no parameters.
-```c++
-int main() {
-	ClassWithDefaultConstructor object;
-	// prints:
-	// default constructor called!
-	return 0;
-}
-```
----
-
-## The Default Constructor
-If you do not write **any** constructors for a class, C++ "writes" a default constructor with no implementation. So:
-```c++
-class C {
-};
-```
-is equivalent to
-```c++
-class C {
-public:
-	C() {}
-};
-```
-Note that this will not happen if you create your own constructors, even if you don't create a default constructor.
----
-
-## The Default Constructor
-Suppose a class called `C` exists. Will the following code invoke the default constructor?
-```c++
-C *c;
-```
----
-
-## Parameterized Constructors
-Constructors can accept parameters. The syntax is like normal functions (just no return value).
-```c++
-class C {
-private:
-	int val;
-public:
-	C();
-	C(int v) {val = v}
-};
-```
-Parameterized constructors are *explicitly* invoked. For example:
-```c++
-int main() {
-	C c(-1); // a new C object is created and
-			// its member variable val is initialized to -1
-}
-```
----
-## Parameterized Constructors
-```c++
-class Greeter {
-private:
-	string message, firstname, lastname;
-public:
-	Greeter(string m, string f, string l) {
-		message = m;
-		firstname = f;
-		lastname = l;
-	}
-	Greeter(string f, string l) {
-		message = "Howdy";
-		firstname = f;
-		lastname = l;
-	}
-	void greet() {
-		cout << message << ", " << firstname << " " << lastname;
-	}
-};
-```
----
-
-## Default values for parameters
-```c++
-class Greeter {
-private:
-	string message, firstname, lastname;
-public:
-	Greeter(string f, string l, string m = "Howdy") {
-		message = m;
-		firstname = f;
-		lastname = l;
-	}
-	void greet() {
-		cout << message << ", " << firstname << " " << lastname;
-	}
-};
-```
----
-
-## Classes with no default constructor
-In the previous example, we defined some constructors but no **default** (no parameters) constructor. If we try and invoke the default:
-```c++
-Greeter g;
-```
-a compile error will result.
----
-
-## ... But in C++11:
-In C++11, a default constructor can be **explicitly** created or omitted:
-```c++
-class Greeter {
-	// ...
-public:
-	Greeter() = default; // force generation
-	// OR
-	Greeter() = delete; // prevent generation
-};
-```
----
-
-## Invoking default vs parameterized constructors
-Note that invoking the default constructor looks different than invoking other constructors:
-```c++
-Greeter g1; // default; no brackets!
-Greeter g2("Yo", "Swag", "Money");
-```
-If we tried to invoke the default in the same way we invoke other constructors:
-```c++
-Greeter g1();
-```
-it will fail or behave bizarrely. Why?
----
-
-## All default values = default constructor
-If a constructor has parameters, but each has a default value, it is still the default constructor.
-```c++
-class C {
-public:
-	C(int v1 = 1, int v2 = 2) {}
-};
-
-C c; // valid!
-```
----
-
-background-image: url(https://www.dropbox.com/s/t7jg1a70upzfdlw/civilwar.jpg?dl=0&raw=1)
-# Part Three: Some Naming Conventions
----
-## Naming conventions for classes and objects
-#### Classes:
-	UpperCamelCase (a.k.a. PascalCase)
-#### Variables, object, functions:
-	camelCase
-#### Header file names:
-	className.h
-#### Implementation file names:
-	className.cpp
-
----
-
-# The End
-[ Class reps! ]
-
-
-
-    </textarea>
-    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
-    </script>
-    <script>
-      var slideshow = remark.create();
-    </script>
-  </body>
-</html>
+How each approach would impact performance:
+- Non-inline members increase computation time
+- Inline members inflate the size of your object code.
