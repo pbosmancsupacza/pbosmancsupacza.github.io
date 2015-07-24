@@ -2,10 +2,8 @@
 ## and arrays of objects and UML
 ### and so on
 
----
-
 # First: Some Naming Conventions
-## Naming conventions for classes and objects
+
 #### Classes:
 	UpperCamelCase (a.k.a. PascalCase)
 #### Variables, object, functions:
@@ -15,12 +13,7 @@
 #### Implementation file names:
 	className.cpp
 
----
-
 # Constructors
-
----
-
 
 ## I can haz initialization?
 In the `MessagePrinter` class, the `message` variable isn't initialized.
@@ -34,8 +27,6 @@ public:
 ```
 How can we solve this?
 
----
-
 ## Constructors
 To let us initialize objects for real, C++ has something built in called *constructors*.
 
@@ -45,9 +36,6 @@ They are called automatically (and always) when an object is instantiated.
 
 We use them as initialization routines.
 
----
-
-## Constructors
 Constructor Example:
 ```c++
 class Noisy {
@@ -62,10 +50,6 @@ Noisy::Noisy() {
 ```
 Every time a `Noisy` object is created, the constructor (called `Noisy`) is called, and the message `Click` is printed.
 
----
-
-## Constructors
-Constructor example (continued):
 `main.cpp`
 ```c++
 int main() {
@@ -78,7 +62,7 @@ int main() {
 }
 ```
 This will output:
-```
+```bash
 about to instantiate...
 Click!
 Click!
@@ -87,9 +71,6 @@ finished instantiating objects.
 ```
 Each object called the constructor when it was instantiated.
 
----
-
-## Constructors
 - Constructors have no return type. (Why?)
 - The name of a constructor is always the same as the name of the class.
 
@@ -111,9 +92,15 @@ ClassName( /*parameterList1*/ ) {
 	// implementation...
 }
 ```
-As you can see, constructors can have parameters, and a class can have multiple constructors. Like other functons, constructors can have multiple parameters, have default parameters, be declared inline, and be overloaded.
 
----
+- a class can have multiple constructors
+- constructors can
+  - have parameters
+  - have multiple parameters
+  - have default parameters
+  - be declared inline
+  - and be overloaded.
+
 
 ## The Default Constructor
 The **default constructor** is the constructor with no parameters.
@@ -134,9 +121,6 @@ int main() {
 }
 ```
 
----
-
-## The Default Constructor
 If you do not write **any** constructors for a class, C++ "writes" a default constructor with no implementation. So:
 ```c++
 class C {
@@ -151,14 +135,10 @@ public:
 ```
 Note that this will not happen if you create your own constructors, even if you don't create a default constructor.
 
----
-
-## The Default Constructor
 Suppose a class called `C` exists. Will the following code invoke the default constructor?
 ```c++
 C *c;
 ```
----
 
 ## Parameterized Constructors
 Constructors can accept parameters. The syntax is like normal functions (just no return value).
@@ -178,8 +158,8 @@ int main() {
 			// its member variable val is initialized to -1
 }
 ```
----
-## Parameterized Constructors
+
+Another example:
 ```c++
 class Greeter {
 private:
@@ -200,12 +180,12 @@ public:
 	}
 };
 ```
----
 
 ## Overload!
 Writing new versions of functions (using different parameter lists) is called *overloading*. As you can see in the previous examples, constructors can be overloaded just like functions.
 
 It's also valid to overload a class' member functions.
+
 
 ## Default values for parameters
 ```c++
@@ -223,7 +203,6 @@ public:
 	}
 };
 ```
----
 
 ## Classes with no default constructor
 In the previous example, we defined some constructors but no **default** (no parameters) constructor. If we try and invoke the default:
@@ -231,7 +210,6 @@ In the previous example, we defined some constructors but no **default** (no par
 Greeter g;
 ```
 a compile error will result.
----
 
 ## ... But in C++11:
 In C++11, a default constructor can be **explicitly** created or omitted:
@@ -244,7 +222,6 @@ public:
 	Greeter() = delete; // prevent generation
 };
 ```
----
 
 ## Invoking default vs parameterized constructors
 Note that invoking the default constructor looks different than invoking other constructors:
@@ -257,7 +234,6 @@ If we tried to invoke the default in the same way we invoke other constructors:
 Greeter g1();
 ```
 it will fail or behave bizarrely. Why?
----
 
 ## All default values = default constructor
 If a constructor has parameters, but each has a default value, it is still the default constructor.
@@ -269,14 +245,12 @@ public:
 
 C c; // valid!
 ```
----
 
 ## But thERE CAN BE ONLY ONE
 A class can only have **one** default constructor. Invoking the default constructor shouldn't leave the compiler wondering whether to invoke the constructor with no parameters, or one with all default parameters (even worse if there are several of those!).
 
 # Destructors
----
-## Destructors
+
 C++ provides another special type of function, called destructors. A destructor is automatically (always) called when an object is destroyed. (When's that?)
 
 The name of a destructor is a tilde (`~`) plus the name of the class. E.g.:
@@ -286,12 +260,12 @@ public:
 	~ItsGonnaBlow();
 };
 ```
----
-## Destructors
+
 Some things about destructors:
 - No return type (just like constructors)
 - No parameters (unlike constructors)
 - So, also no overloading - only one destructor per class
+
 
 ## When are they called?
 An object is destroyed when it goes out of scope. Suppose a destructor prints a message when its object is destroyed:
@@ -303,6 +277,7 @@ public:
 	~ItsGonnaBlow() {	cout << name << ": Boom!" << endl;}
 }
 ```
+
 The following code:
 ```c++
 int main() {
@@ -318,11 +293,12 @@ int main() {
 }
 ```
 will print the following:
-```
+```bash
 2: Boom!
 3: Boom!
 1: Boom!
 ```
+
 
 ## But why
 Destructors come in handy when objects maintain memory. Suppose a constructor allocates memory as follows:
@@ -340,7 +316,6 @@ SomeClass::~SomeClass() {
 }
 ```
 It's good practice to let destructors undo what constructors did.
----
 
 ## When does it get called for dynamically allocated objects?
 If we dynamically allocate an object, we must remember to `delete` it.
@@ -350,31 +325,29 @@ ItsGonnaBlow *dynamicObject = new ItsGonnaBlow();
 delete dynamicObject;
 ```
 The destructor is invoked when the object is deleted.
----
 
 # Other stuff about classes & objects
 
 ## Private member functions
 Member functions can be private.
 
-Private member functions do not form part of a class' public interface; clients can not use them.
+Private member functions do not form part of a class' public interface; clients cannot use them.
 
 Where would we need them?
 
+
 ## Arrays of Objects
 You can make arrays of class objects. The objects will all be instantiated using their constructors. How you declare an array will determine how the objects are created.
----
 
-## Arrays of Objects: Invoke default constructor
+### Invoke default constructor
 To create an array of objects and create each object using its default constructor:
 ```c++
 int arraySize = 99;
 ClassWithDefaultConstructor arrayOfObjects[arraySize];
 ```
 If a class doesn't have a default constructor, this won't work; you'll have to pass arguments to one the class's parameterized constructors.
----
 
-## Arrays of Objects: invoke constructor with ONE parameter
+### Invoke constructor with ONE parameter
 To create an array of objects and create each object using a parameterized constructor, you must provide the parameter to each constructor:
 ```c++
 ClassWithParameterizedConstructor arrayOfObjects[] = {
@@ -388,9 +361,8 @@ This will:
 - pass "x" as a parameter to the constructor of the first object
 - pass "y" as a parameter to the constructor of the second object
 - etc.
----
 
-## Arrays of Objects: invoke constructor with multiple parameters
+### Invoke constructor with multiple parameters
 If you want to invoke constructors that takes >1 parameters when you initialize an array, the initialization takes the form of a function call:
 ```c++
 ComplexClass arrayOfObjects[] = {
@@ -401,11 +373,11 @@ ComplexClass arrayOfObjects[] = {
 ```
 This will:
 - create an array of 3 class objects
-- pass `"param1"`` and `1` as parameters to the constructor of the first object
+- pass `"param1"` and `1` as parameters to the constructor of the first object
 - etc.
----
 
-## Arrays of Objects: Mixing it up
+
+### Mixing it up
 ```c++
 MyClass arrayOfObjects[4] = {
 	MyClass(),
@@ -419,23 +391,18 @@ This will create an array of 3 `MyClass` objects and
 - Invoke the constructor that takes a `string` parameter for the second object
 - Invoke the constructor that takes a `string` and an `int` parameter for the third object
 - Invoke the default constructor for the fourth object
----
 
-## Arrays of Objects:
+### Accessing objects in an array
 An array of objects works like an ordinary array. Its elements are accessed using the subscript operator:
 ```c++
 arrayOfObjects[1].memberVariable = 1;
 int q = arrayOfObjects[1].memberFunction();
 ```
----
-
 
 # UML
 ## (Unified Modeling Language)
 UML is a standard for drawing diagrams of object oriented systems.
----
 
-## UML
 Suppose we want to draw a UML diagram for the following class:
 ```c++
 class Printer {
@@ -450,34 +417,23 @@ public:
 	void print();
 };
 ```
----
 
-## UML
 In UML, a class is represented by a box. The box is divided into three sections for:
 - The name of the class
 - The class's member variables
 - The class's member functions
+
 ![](./res/UML-zones.svg)
----
-
-## UML
-So (so far), our example would look like this:
 ![](./res/UML-vars-funs.svg)
----
 
-## Access modifiers in UML
+### Access modifiers
 Access modifiers are indicated by preceding each member with a + (public) or a - (private).
 ![](./res/UML-access.svg)
----
 
-## Types in UML
+### Types
 UML shows the types of variables and the return types of functions *after* the name of the variable or functions, separated by a colon.
 ![](./res/UML-types.svg)
----
 
-## Constructors and Destructors in UML
+### Constructors and Destructors
 Constructors and destructors go in the *functions* section of the box.
 ![](./res/UML-constr.svg)
----
-
-# FIN
