@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="UML-constr.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="299.7152"
+     inkscape:cy="651.92717"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1600"
+     inkscape:window-height="848"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:11.26366615;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect2985"
+       width="503.77917"
+       height="443.06491"
+       x="120.25327"
+       y="303.32974" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:8.79602718;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect2993"
+       width="494.10397"
+       height="1.961116"
+       x="123.30515"
+       y="359.23874" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:8.43051052;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect2995"
+       width="499.46948"
+       height="0.89806098"
+       x="121.69382"
+       y="428.19885" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="132.85715"
+       y="343.79077"
+       id="text2997"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2999"
+         x="132.85715"
+         y="343.79077"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto Bold">Printer</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="129.5636"
+       y="407.59543"
+       id="text2997-5"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="129.5636"
+         y="407.59543"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto Light"
+         id="tspan3022">- message : string</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="127.13501"
+       y="474.73822"
+       id="text2997-7"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2999-5"
+         x="127.13501"
+         y="474.73822"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto Light">+ Printer( ) :</tspan><tspan
+         sodipodi:role="line"
+         x="127.13501"
+         y="524.73822"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto Light"
+         id="tspan3142">+ Printer(string) :</tspan><tspan
+         sodipodi:role="line"
+         x="127.13501"
+         y="574.73822"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto Light"
+         id="tspan3144">+ ~Printer( ) : </tspan><tspan
+         sodipodi:role="line"
+         x="127.13501"
+         y="624.73822"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto Light"
+         id="tspan3140">+ getMessage( ) : string</tspan><tspan
+         sodipodi:role="line"
+         x="127.13501"
+         y="674.73822"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto Light"
+         id="tspan3058">+ setMessage(string) : void</tspan><tspan
+         sodipodi:role="line"
+         x="127.13501"
+         y="724.73822"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto Light"
+         id="tspan3062">+ print( ) : void</tspan><tspan
+         sodipodi:role="line"
+         x="127.13501"
+         y="774.73822"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto Light"
+         id="tspan3060" /></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="285.71429"
+       y="495.21933"
+       id="text3054"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3056"
+         x="285.71429"
+         y="495.21933" /></text>
+  </g>
+</svg>
