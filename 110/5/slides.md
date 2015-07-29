@@ -4,9 +4,9 @@ class: middle
 ---
 
 ## This lecture:
-- Copy constructors!
-- Overload the assignment operator!
-- Overload other operators!
+- Copy constructors
+- Overloading the assignment operator
+- Overloading operators in general
 
 ---
 
@@ -85,7 +85,7 @@ public:
 ---
 
 ## Copy constructors
-If a class has member variables, we have to duplicate the memberwise assignment ourselves (if we want it):
+If a class has member variables, we have to do the memberwise assignment ourselves (if we want it):
 ```c++
 class ElvisImpersonator {
   string realName;
@@ -109,9 +109,7 @@ public:
 
 ## Some notes
 ### Access to private members
-Why does one Elvis impersonator have access to another impersonator's private members?
-
-Because C++ allows one object to access another's private members if
+Notice that one Elvis impersonator has access to another impersonator's private members. C++ allows one object to access another's private members if
 1. the other object is passed as a parameter to a function, and
 2. the other object is the same type as the one that's doing the accessing.
 
@@ -149,6 +147,12 @@ A reference parameter is needed so that the copy constructor is not called recur
 
 ---
 
+## Some notes
+### parameter name
+The name of the parameter can be whatever you want it to be. The right-hand-side of an assignment upon initialization will always be assigned to the parameter.
+
+---
+
 ## Copy constructors: A more serious use case
 Consider the following class:
 ```c++
@@ -159,9 +163,16 @@ public:
   int* getPointer() {
     return pointer;
   }
+  void setPointer(int *p) {
+    pointer = p;
+  }
 };
 ```
-And this client code:
+
+---
+
+## Copy constructors: A more serious use case
+... And this client code:
 ```c++
 WithPointer original;
 original.setPointer(new int(10));
@@ -170,6 +181,7 @@ WithPointer clone = original;
 *clone.getPointer() = 11;
 
 cout << *original.getPointer() << endl;
+// prints 11
 ```
 Even though we changed the value of the integer that `clone` was pointing to, it also changed for `original`. That's because memberwise assignment only does **shallow** copying of pointers.
 
@@ -177,12 +189,16 @@ Even though we changed the value of the integer that `clone` was pointing to, it
 
 ## Copy constructors: A more serious use case
 ### Shallow copying
-When copying pointers, the default behaviour is to make shallow copies. A shallow copy of a pointer is when:
+When copying pointers, the default behaviour is to make shallow copies. A shallow copy means:
 - One pointer variable is copied to another
 - But only the address stored in the first variable is copied to the second
 - So each variable points to the same object or variable
 - So changes made to the object using one of the pointers will change the value of the object as it is seen by the other pointers
 
+---
+
+## Copy constructors: A more serious use case
+### Shallow copying
 ```c++
 int *pointer1 = new int(-1); // p1 points to an integer
 int *pointer2 = pointer1; // p2 points to the same integer as p1
@@ -192,6 +208,10 @@ cout << *pointer1 << endl; // prints `0` because:
   // ("also" because it's the same integer)
 ```
 
+---
+background-image: url(./res/copy.png)
+## Copy constructors: A more serious use case
+### Shallow copying
 ---
 
 ## Copy constructors: A more serious use case
@@ -213,13 +233,7 @@ public:
     if (pointer) delete pointer;
   }
 
-  int* getPointer() {
-    return pointer;
-  }
-
-  void setPointer(int *i) {
-    pointer = i;
-  }
+  // etc
 };
 ```
 
@@ -238,7 +252,7 @@ lhs = rhs;
 ```
 do **not** cause the copy constructor to be invoked. Rather, in the second line, the **assignment operator** is invoked.
 
-As with the copy constructor, C++ provides a default assignment operator that performs memberwise assignment. And, as with the copy constructor, we can provide our own version of the assignment operator. This is referred to operator overloading.
+As with the copy constructor, C++ provides a default assignment operator that performs memberwise assignment. And, as with the copy constructor, we can provide our own version of the assignment operator. This is operator overloading.
 
 ---
 
@@ -259,3 +273,280 @@ In the second statement, you can see that the `=` operator is takes the form of 
 ---
 
 ## Assignment operator
+### Overloading the assignment operator:
+In the header file:
+```c++
+class WithPointer {
+  // ...
+public:
+  void operator=(const WithPointer&);
+};
+```
+
+---
+
+## Assignment operator
+### Overloading the assignment operator:
+Notes:
+- The return type can be anything (doesn't have to be `void`)
+- There can be white space between `operator` and `=`
+
+  (e.g. void operator = (...))
+- There **must** be exactly one parameter
+- The parameter must be of type `WithPointer` if you want to invoke the operator for objects of that type
+- The parameter, if you decide to name it here, can be called anything you like
+- The parameter doesn't have to be a reference; this is just more efficient
+- the parameter doesn't have to be `const`; this is just safer (especially considering that it is a reference)
+
+---
+
+## Assignment operator
+### Overloading the assignment operator:
+In the implementation file:
+```c++
+void WithPointer::operator=(const WithPointer &other) {
+  // example implementation 1
+  pointer = new int(*other.pointer);
+}
+```
+The signature is the same as in the header, except you'll need a parameter name (which can be anything you like)
+
+---
+
+## Assignment operator
+### Overloading the assignment operator:
+Example implementation 1 might cause memory leak.
+```c++
+void WithPointer::operator=(const WithPointer &other) {
+  // example implementation 2
+  if (pointer)
+    delete pointer;
+  pointer = new int(*other.pointer);
+}
+```
+So we check if the pointer is currently assigned; if so, we first deallocate (`delete`) it.
+
+(Careful, though: if you did something like this:
+```c++
+int i = 10;
+withPointerObject o;
+*o.getPointer() = &i;
+```
+then deleting the pointer would be invalid!)
+
+---
+
+## Assignment operator
+### Overloading the assignment operator:
+If we assign an object to itself (`WithPointer o1; o1 = o1;`), then example implementation 2 will fail: the pointer will be deallocated and then assigned to itself.
+```c++
+void WithPointer::operator=(const WithPointer &other) {
+  // example implementation 3
+  if (&other!=this) {
+    if (pointer)
+      delete pointer;
+    pointer = new int(*other.pointer);
+  }
+}
+```
+So we first check that the object is not being assigned to itself:
+
+`if (&other != this)`
+
+---
+
+## this
+`this` is a special pointer that
+- is available to be used when implementing member functions
+- points to the instance/object that a function is called on
+
+```c++
+class MyClass {
+  int member;
+public:
+  void setMember(int i) {
+    this->member = i; // why ->?
+  }
+};
+```
+`this` can be useful when
+- you want to check whether another object is the same as the one a function is called on (previous example)
+- you want to access a member that is "hidden" by parameters with the same name
+
+---
+
+## a = b = c
+There are many cases where we might want the assignment operator to return a value. The most obvious case is when we want to chain assignments:
+```c++
+WithPointer a, b, c(1);
+a = b = c;
+// ^ which means
+// a = (b = c);
+// i.e. a = the RESULT of (b = c)
+```
+For that to work, the assignment operator should return an object of the class type.
+
+---
+
+## a = b = c
+```c++
+class WithPointer {
+  // ...
+public:
+  const WithPointer operator=(const WithPointer&);
+};
+```
+```c++
+const WithPointer WithPointer::operator=(const WithPointer &other) {
+  // example implementation 4
+  if (&other!=this) {
+    if (pointer)
+      delete pointer;
+    pointer = new int(*other.pointer);
+  }
+  return *this;
+}
+```
+
+---
+
+class: middle
+# Operator overloading
+
+---
+
+## Some notes about operator overloading
+### 1
+C++ and the compiler has no notion of correct or expected behaviour with regards to operators. In theory, you can overload the `=` operator to print out the value of the left operand, decrement the value of the right, print an insult to the user, and return a surprisingly close approximation of pi.
+
+---
+
+## Some notes about operator overloading
+### 2
+The number of **operands** of an operator cannot change. Assignment will always take one left and one right operand, and ++ will always be unary.
+
+---
+
+## Some notes about operator overloading
+### 3
+You can overload most -- but not all -- operators. Specifically, the following operators cannot be overloaded:
+
+```
+?:
+.
+.*
+::
+sizeof
+```
+
+---
+
+## Operator overloading
+
+The general form to overload an operator is the same as for overloading a function:
+```c++
+ReturnType operatorName (parameterlist);
+```
+The trick to overloading a given operator is:
+- to know the `operatorName`, e.g. `operator=` (most operators will be `operator` and the symbol we know)
+- to know which operands (l.h.s and r.h.s) are parameters and which are the calling object (for binary operators, l.h.s is usually the calling object and r.h.s the parameter)
+
+Knowing these tricks, the binary mathematical operators `+` and `-` are straightforward to overload.
+---
+
+## Operator overloading
+### Example 1: for one class
+```c++
+class MS {
+private:
+  int seconds; // seconds wrap at 60
+  int minutes;
+public:
+  MS(int m, int s) {minutes = m; seconds = s;}
+  void print() {cout << minutes << ':' << seconds << endl;}
+  MS operator + (MS &);
+};
+
+MS MS::operator + (MS &rhs) {
+  int s = (seconds + rhs.seconds) % 60;
+  int m = minutes + rhs.minutes + (seconds + rhs.seconds) / 60;
+  return MS(m, s);
+}
+```
+```
+MS ms1(1, 33);
+MS ms2(2, 48);
+(ms1 + ms2).print(); //4:21
+```
+
+---
+
+## Operator overloading
+### Example 2: for two classes
+
+Suppose we add a second class, `S`, to the mix. `S` only keeps track of seconds. We want to be able to add an `S` instance to an `MS` instance.
+
+---
+
+## Operator overloading
+### Example 2: for two classes
+
+`S`'s class declaration looks like this:
+```c++
+class S {
+private:
+  int seconds;
+public:
+  S(int s) {seconds = s;}
+  void print() {cout << seconds << endl;}
+  S operator + (S&o);
+  friend MS MS::operator +(S&);
+};
+```
+Implementation:
+```c++
+S S::operator + (S &o)  {
+  return S(seconds + o.seconds);
+}
+```
+
+---
+
+## Operator overloading
+### Example 2: for two classes
+
+`MS`'s class declaration gets another overloaded operator:
+```c++
+class MS {
+private:
+  int minutes;
+  int seconds; // seconds are capped at 60
+public:
+  MS(int m, int s) {minutes = m; seconds = s;}
+  void print() {cout << minutes << ':' << seconds << endl;}
+  MS operator + (MS &);
+  MS operator + (S&); // we added this line
+};
+```
+
+The implementation for the new operator:
+```c++
+MS MS::operator + (S &rhs) {
+  MS rhs2(0, rhs.seconds);
+  return *this + rhs2;
+}
+```
+
+---
+
+## Operator overloading
+### Example 2: for two classes
+
+Note: we could have made a `getSeconds()` function to allow `MS`'s addition operator to access `S`'s private member.
+
+---
+
+class: middle
+# End for today
+
+---
