@@ -133,7 +133,10 @@ public:
 
 ## Some notes
 ### const
-In the Elvis examples, the copy constructor's parameter is `const`. This is not a requirement, but generally regarded as a good idea. Can you tell why? (The previous slide should make it pretty clear.)
+In the Elvis examples, the copy constructor's parameter is `const`. This is not a requirement, but generally regarded as a good idea:
+- The parameter is also a reference, so `const` ensures that it won't be modified
+- This is needed for the constructor to be able to make copies of temporary objects
+- The implicitly defined (default) CC has this signature, as far as I can tell
 
 ---
 
@@ -393,11 +396,11 @@ For that to work, the assignment operator should return an object of the class t
 class WithPointer {
   // ...
 public:
-  const WithPointer operator=(const WithPointer&);
+  WithPointer& operator=(const WithPointer&);
 };
 ```
 ```c++
-const WithPointer WithPointer::operator=(const WithPointer &other) {
+WithPointer& WithPointer::operator=(const WithPointer &other) {
   // example implementation 4
   if (&other!=this) {
     if (pointer)
@@ -407,6 +410,14 @@ const WithPointer WithPointer::operator=(const WithPointer &other) {
   return *this;
 }
 ```
+
+---
+
+## a = b = c
+### Return and parameter types
+It is recommended (but not in the textbook) that the return type be a **non-const reference** and the argument be a **const reference**.
+- Doesn't change the functionality of parameter chaining - as long as the function takes and returns the class type, it will still work
+- Mimics C++'s default behaviour and implicitly defined operators, so everything will work as expected
 
 ---
 
