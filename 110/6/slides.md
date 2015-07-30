@@ -1,3 +1,7 @@
+background-image: url(./carrots.jpg)
+
+---
+
 class: middle
 # Operator overloading: increment and relational operators
 
