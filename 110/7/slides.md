@@ -216,6 +216,7 @@ IntArray &IntArray::operator= (IntArray &other) {
         array[i] = other.array[i];
       }
     }
+    return *this;
 }
 ```
 
