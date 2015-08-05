@@ -1,4 +1,11 @@
 class: middle
+### Today:
+- Object conversion
+- Aggregation
+
+---
+class: middle
+background-image: url(./res/monk.png)
 # Object conversion
 ---
 layout: true
@@ -193,6 +200,41 @@ Fraction::operator OurOwnClassType() {
 ---
 layout: true
 ## Object conversion
+### Side note
+---
+
+Suppose there are two classes, called `One` and `Two`, where
+- `One` has a conversion operator that converts objects to type `Two`
+- `Two` has a constructor that takes a `One`-type object as a parameter
+
+---
+
+
+```c++
+class One {
+  // ...
+  operator Two();
+};
+
+class Two {
+  // ...
+  Two(One);
+};
+```
+--
+
+Which would get called by the following code?
+```c++
+One one;
+*Two two = one;
+```
+--
+
+**Answer:** The code won't compile because it is an **ambiguous conversion**.
+
+---
+layout: true
+## Object conversion
 ---
 
 Using conversion, our `Fraction` class can be printed to `ostream` objects without the need of overloaded stream operators.
@@ -221,6 +263,7 @@ The *logic* behind this is that different conversions can cause different things
 
 layout: true
 class: middle
+background-image: url(./res/engine.png)
 # Aggregation
 ---
 ---
@@ -228,4 +271,54 @@ layout: true
 ## Aggregation
 ---
 
-asdf
+**Aggregate**: a whole formed by combining several separate elements
+--
+
+
+So far, our member functions have been (mostly) of primitive types:
+```c++
+class MyClass {
+  int member1;
+  char member2;
+  string member3;
+};
+```
+--
+
+(One of these is not like the others...)
+
+---
+
+Member variables can be of any type, including class types that we define.
+```c++
+class TypeA {};
+class TypeB {
+  TypeA memberVariable;
+};
+```
+
+--
+
+Aggregation is when a class is comprised of instances of another class.
+
+--
+
+Sometimes, it makes sense to build classes out of other classes. For example, a house contains doors, windows, a roof, etc.
+
+---
+
+Some notes:
+- For now, make sure all your classes have default constructors
+--
+
+  - If that's not possible, look up "initializer lists"
+--
+
+
+... and that's it.
+
+---
+layout: true
+class: middle
+# The end
+---
