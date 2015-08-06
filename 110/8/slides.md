@@ -2,6 +2,7 @@ class: middle
 ### Today:
 - Object conversion
 - Aggregation
+- Chaining stream extraction operations
 
 ---
 class: middle
@@ -307,15 +308,82 @@ Sometimes, it makes sense to build classes out of other classes. For example, a 
 
 ---
 
-Some notes:
-- For now, make sure all your classes have default constructors
+### How to construct objects
+In the following,
+```c++
+class Part {
+  int partValue;
+public:
+  Part() {partValue = -1;}
+  Part(int i) {partValue = i;}
+  void setPart(int i) {partValue = i;}
+};
+
+class Whole {
+  Part part;
+public:
+  Whole() {
+    // ...?
+  }
+  Whole(int i) {
+    // ...?
+  }
+};
+```
+---
+
+### How to construct objects
+
+When any of `Whole`'s constructors are invoked, the **default** constructor of `Part` is invoked **before** the body of `Whole`'s constructor even starts.
 --
 
-  - If that's not possible, look up "initializer lists"
+
+So we use setters to set the members of the `Part` object.
 --
 
 
-... and that's it.
+For now, make sure all your classes have default constructors
+--
+
+
+If that's not possible, look up "initializer lists"
+```c++
+public:
+  Whole(int i) : part(i) {}
+```
+
+---
+background-image: url(./res/extract.png)
+layout: true
+class: middle
+# Chaining stream extraction operations
+### A question from the previous class
+---
+---
+layout: true
+## Chaining stream extraction operations
+---
+
+Recall that an overloaded stream extraction (`>>`) operator should take the following form:
+```c++
+istream& operator >> (istream& in, MyClass& obj) {
+  // ... read values into your object...
+  return in;
+}
+```
+--
+
+This is so that you can chain extraction operations, like this:
+```c++
+MyClass o1, o2, o3;
+cin >> o1 >> o2 >> o3;
+```
+--
+
+... which will read in 3 values (each on a new line), and is equivalent to this:
+```c++
+operator>>(operator>>(operator>>(cin, o1), o2), o3);
+```
 
 ---
 layout: true
