@@ -320,7 +320,7 @@ If `p` points to an integer,
 and `p-1` points to the one *before* `p`
 ]
 
-(Might not be a valid integer)
+(*Might not be a valid integer)
 ---
 class: middle
 .bigtext[
@@ -358,4 +358,435 @@ c++; // c moves on by 1 byte
 ]
 ---
 class: middle
+### Careful!
 .bigtext[
+Pointer arithmetic allows us to access invalid memory
+]
+---
+class: middle
+# Dynamic Arrays
+---
+class: middle
+.bigtext[
+So far, we used *static* arrays
+]
+---
+class: middle
+.bigtext[
+The size of a static array must be fixed at compile time
+```c++
+int array[10];
+```
+]
+---
+class: middle
+.bigtext[
+Setting the size at run time is illegal
+```c++
+cout << "How many elements?";
+int size;
+cin >> size;
+int array[size];
+```
+]
+---
+class: middle
+.bigtext[
+Allocate *dynamic* arrays on the heap using the `new` keyword
+```c++
+int *array = new int[10];
+```
+]
+---
+class: middle
+.bigtext[
+The heap provides *dynamic* memory, so the size of the array can now be set at run time
+```c++
+cout << "How many elements?";
+int size;
+cin >> size;
+int *array = new int[size];
+```
+]
+
+`array` is a pointer that points to the first element of the array
+---
+class: middle
+.bigtext[
+Static and dynamic arrays store the address of the first element to their variables
+]
+---
+class: middle
+.bigtext[
+You can iterate through an array using pointer arithmetic
+]
+---
+class: middle
+.bigtext[
+```c++
+int size = 99;
+int *array = new int[size];
+
+for (int i = 0; i < size; i++)
+  *(array + i) = 0;
+```
+]
+---
+class: middle
+.bigtext[OR
+]
+---
+class: middle
+.bigtext[
+```c++
+int size = 99;
+int *array = new int[size];
+
+for (int *i = array; i < array + size; i++)
+  *i = 0;
+```
+]
+---
+class: middle
+.bigtext[
+This can also be done with static arrays
+```c++
+int size = 99;
+int array[size];
+
+for (int i = 0; i < size; i++)
+  *(array + i) = 0;
+
+// or
+
+for (int *i = array; i < array + size; i++)
+  *i = 0;
+```
+]
+---
+class: middle
+.bigtext[
+Dynamic arrays can be traversed using subscripts
+]
+---
+class: middle
+.bigtext[
+```c++
+int size = 99;
+int *array = new int[size];
+
+for (int i = 0; i < size; i++)
+  array[i] = 0;
+```
+The expression `array[i]` uses pointer arithmetic and is equivalent to `*(array+i)`
+]
+---
+class: middle
+# 2D
+---
+class: middle
+.bigtext[
+Static 2D arrays are simple to declare
+```c++
+int twoD[2][3];
+```
+This gives us a 2D array with 2 rows and 3 columns
+```
+twoD[0][0] twoD[0][1] twoD[0][2]
+twoD[1][0] twoD[1][1] twoD[1][2]
+```
+]
+---
+class: middle
+.bigtext[
+To declare a 2D *dynamic* array, first declare an array of pointers for the rows...
+```c++
+int **array = new int[2];
+```
+]
+---
+class: middle
+.bigtext[
+... and then declare each row to be an array of columns
+```c++
+for (int row = 0; row < 2; row++)
+  array[row] = new int[3];
+```
+]
+---
+class: middle
+.bigtext[
+This gives a slightly different situation in memory
+```
+twoD[0] -> {twoD[0][0], twoD[0][1], twoD[0][2]}
+twoD[1] -> {twoD[1][0], twoD[1][1], twoD[1][2]}
+```
+]
+---
+class: middle
+.bigtext[
+The elements in the matrix are `int` values
+
+The columns containing the values are pointers to those `int`s, so they are `int*` values
+
+The rows containing the columns are pointers to `int*` values, so they are `int**` values
+]
+---
+class: middle
+.bigtext[
+The elements of the dynamic matrix can be accessed by using double indices
+```c++
+int zeroOne = twoD[0][1]; //valid
+```
+]
+---
+class: middle
+.bigtext[
+To deallocate a dynamic 2D array, you have to loop through and deallocate each row...
+```c++
+for (int row = 0; row < rows; i++)
+  delete [] twoD[row];
+```
+]
+---
+class: middle
+.bigtext[
+... and then deallocate the array of rows
+```c++
+delete [] twoD;
+```
+]
+---
+class: middle
+.bigtext[
+The standard `main` function signature uses a dynamic array
+```c++
+int main(int argc, char **argv) {
+```
+]
+---
+class: middle
+.bigtext[
+... which allows us to access an arbitrary number of arguments passed to the main program from command line
+```
+# suppose your program is called main
+./main argument1 2 3 etc
+```
+]
+---
+class: middle
+.bigtext[
+```c++
+int main(int argc, char **argv) {
+```
+
+`argc` is the number of arguments passed to the main program from command line
+
+`argv` is the array of arguments, each of which is an array of characters
+]
+---
+class: middle
+# Pointers and Functions
+---
+class: middle
+.bigtext[
+When you pass a variable to a function
+```c++
+int variable = -1;
+increment(variable);
+```
+]
+---
+class: middle
+.bigtext[
+... and that function takes the parameter as "pass-by-value"
+```c++
+void increment(int i) { i++; }
+```
+]
+---
+class: middle
+.bigtext[
+... then the function gets a **copy** of the variable, so the variable cannot be altered by the function
+```c++
+cout << variable << endl;
+// still -1
+```
+]
+---
+class: middle
+.bigtext[
+If the function takes the parameter "by reference"
+```c++
+void increment(int& i) { i++; }
+```
+]
+---
+class: middle
+.bigtext[
+... then the function operates **directly** on the variable, so the variable can be altered by the function
+```c++
+cout << variable << endl;
+// 0
+```
+]
+---
+class: middle
+.bigtext[
+If we pass a **pointer** to a function by **value**
+```c++
+void foo(int *i) {
+  // try and increment the value pointed to:
+  *i++;
+
+  // try and increment the address:
+  i++;
+}
+```
+]
+---
+class: middle
+.bigtext[
+... then the function can can change the value that the pointer is pointing to, but not the address stored by the pointer.
+```c++
+int *p = new int(-1);
+foo(p);
+// p still points to the same place
+// but the value at *p is now 0
+```
+]
+---
+class: middle
+.bigtext[
+If we pass a pointer to a function by **reference**
+```c++
+void foo(int *&i) {
+  *i++;
+  i++;
+}
+```
+]
+---
+class: middle
+.bigtext[
+... then the function can modify both the value pointed to *and* the address of the pointer
+```c++
+int *p = new int(-1);
+int *q = p;
+foo(p);
+// q points to 0
+// p points to the address next to p
+```
+]
+---
+class: middle
+.bigtext[
+Passing a pointer by value is similar to passing a static variable by reference - both allow the function to change the variable, but not the reference (or pointer)
+]
+---
+class: middle
+.bigtext[
+A function can return a pointer
+]
+---
+class: middle
+.bigtext[
+But you cannot return a pointer to a local, static variable.
+]
+---
+class: middle
+.bigtext[
+```c++
+int *foo() {
+  int x = 0;
+  return &x; // invalid!
+}
+```
+When the function returns, the local value goes out of scope and is deallocated. The caller gets a pointer to invalid memory.
+]
+---
+class: middle
+.bigtext[
+Dynamic variables have no scope.
+]
+---
+class: middle
+.bigtext[
+So you can return a pointer to a dynamically allocated variable from a function
+```c++
+int *foo() {
+  int *x = new int(0);
+  return x;
+}
+```
+]
+---
+class: middle
+.bigtext[
+(Returning a pointer could be useful if you want to return a dynamic array)
+]
+---
+class: middle
+# Deep and Shallow Copies
+---
+class: middle
+.bigtext[
+Assigning one pointer to another creates a shallow copy
+]
+---
+class: middle
+.bigtext[
+```c++
+int *p = new int[10];
+int *q = p;
+```
+Only the address is copied.
+
+Both pointers refer to the same dynamic memory.
+]
+---
+class: middle
+.bigtext[
+If one pointer modifies the memory,
+```c++
+p[1] = 0;
+```
+... or even deallocates it,
+```c++
+delete [] q;
+```
+... other pointer is also affected.
+]
+---
+class: middle
+.bigtext[
+A deep copy means each pointer points to its own copy of the data
+]
+---
+class: middle
+.bigtext[
+A deep copy must be created manually
+```c++
+int *p = new int(0);
+int *q = new int(*p);
+```
+]
+---
+class: middle
+.bigtext[
+A deep copy of an array is created by iterating through the array
+
+```c++
+int *p = new int[10];
+// fill with data...
+
+int *q = new int[10];
+// (we have to know the size
+// of the original array)
+for (int i = 0; i < 10; i++)
+  q[i] = p[i];
+```
+]
+---
+class: middle
+# That's it
