@@ -2,22 +2,58 @@
 <html>
 <head>
   <meta charset="utf-8"/>
-  <title>Marked in the browser</title>
+  <title>COS Notes etc</title>
   <script src="lib/marked.js"></script>
+  <style>
+  @import url(https://fonts.googleapis.com/css?family=Roboto+Condensed);
+  @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+  @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+  @import url(https://fonts.googleapis.com/css?family=Vollkorn);
+  body {
+     font-family: 'Droid Serif';
+     font-size: 1em;
+  }
+  h1, h2, h3 {
+     font-family: 'Roboto Condensed';
+     /*font-family: Vollkorn;*/
+     font-weight: bold;
+  }
+  .content {
+     margin-left:500px;
+     margin-right:500px;
+     margin-top:100px;
+     margin-bottom:100px;
+  }
+  a:link{
+   color: #74828f;
+  }
+  a:visited{
+   color: #525564;
+  }
+  a:hover{
+   color: #96C0CE;
+  }
+  </style>
 </head>
 <body>
   <!-- processed html content goes here -->
-  <div id="content"></div>
+  <div id="content" class="content"></div>
   <!-- process md to html -->
   <script type="text/javascript">
     var c = '# COS Notes and Slides\n' +
-            '### COS110\n' +
+            '---\n\n' +
+            '## COS110\n' +
+            '### Lectures\n' +
             'Lecture 2 [notes](./110/2/notes.md) | [slides](./110/2/slides.html)\n\n' +
             'Lecture 3 [notes](./110/3/notes.md) | [slides](./110/3/slides.html)\n\n' +
             'Lecture 4 [slides](./110/4/slides.html)\n\n' +
             'Lecture 5 [slides](./110/5/slides.html)\n\n' +
             'Lecture 6 [slides](./110/6/slides.html)\n\n' +
-            'Lecture 7 [slides](./110/7/slides.html)\n\n'
+            'Lecture 7 [slides](./110/7/slides.html)\n\n' +
+            'Lecture 8 [slides](./110/8/slides.html)\n\n' +
+            'Lecture 9 [slides](./110/9/slides.html)\n\n' +
+            '### Tutorials\n' +
+            'Tutorial 2 [slides](./110/t/2/slides.html)\n\n'
     document.getElementById('content').innerHTML =
     marked(c);
   </script>
