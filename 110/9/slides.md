@@ -130,7 +130,7 @@ Consider these 2 cases:
 ```c++
 int *p;
 int  i = -1;
-*p = &i;
+p = &i;
 ```
 And
 ```c++
@@ -340,7 +340,7 @@ class: middle
 .bigtext[
 ```c++
 DataType *p;
-return *p + i;
+return p + i;
 ```
 
 The result is a pointer that is `i` steps (each the size of `DataType`) ahead of `p` in memory
@@ -352,7 +352,7 @@ class: middle
 int *p = new int(0);
 p++; // p moves on by 4 bytes
 
-char * c = new char('a');
+char *c = new char('a');
 c++; // c moves on by 1 byte
 ```
 ]
@@ -501,7 +501,7 @@ class: middle
 .bigtext[
 To declare a 2D *dynamic* array, first declare an array of pointers for the rows...
 ```c++
-int **array = new int[2];
+int **array = new int*[2];
 ```
 ]
 ---
