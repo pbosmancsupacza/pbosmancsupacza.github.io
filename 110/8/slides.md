@@ -63,7 +63,7 @@ public:
 * operator int();
 };
 
-Time::operator int(); {
+Time::operator int() {
   return s + 60*m + 3600*h;
 }
 ```
