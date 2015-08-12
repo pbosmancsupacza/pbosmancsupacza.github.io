@@ -7,6 +7,17 @@ layout: true
 class: middle
 ---
 
+These slides are available at:
+.bigtext[
+```
+pbosmancsupacza.github.io
+```
+]
+- my email address (pbosman@cs.up.ac.za) without any punctuation
+- hosted on github pages, so .github.io
+
+---
+
 # Overloading operators
 
 ---
@@ -272,35 +283,35 @@ ostream& operator<<(ostream& out, MyClass myObject) {
 
 
 - `operator<<` is a *friend* of `MyClass`, not a member
---
+---
 
 
 - return type is `ostream&`
   - allows chaining; e.g. `cout << obj1 << obj2;`
---
+---
 
 
 - return type *must* be by reference
   - otherwise `ostream`'s copy constructor would be invoked
   - but `ostream`'s copy constructor is private
---
+---
 
 
 - the operator's name is `operator<<`
---
+---
 
 - there are two parameters
   - because `<<` is a binary operator
---
+---
 
 
 - first parameter is the left-hand operand, which is of type `ostream`
   - also passed by reference; CC is private
---
+---
 
 
 - second parameter is the right-hand operand, which is the type we are overloading the operator for
---
+---
 
 - in the implementation, we can use existing overloaded versions of the `<<` operator to help implement ours
 
@@ -388,9 +399,6 @@ int operator[] (MyClass object, int index) {
 
 ---
 
-The `index` parameter must be number-like
-
----
 
 We usually create two versions:
 - One that returns a value **by reference**
@@ -496,6 +504,10 @@ There are no parameters
 
 ---
 
+Only ZUUL
+
+---
+
 Objects of the type can now be automatically converted to `int` values
 ```c++
 Time t;
@@ -587,7 +599,7 @@ whole created
 ---
 
 # Dynamic memory
-## Random notes
+## some notes
 
 ---
 
@@ -674,6 +686,7 @@ void foo() {
 while (true)
    foo();
 ```
+Each time the function exits, memory leak occurs
 
 ---
 
@@ -682,6 +695,7 @@ int *p;
 p = new int;
 p = new int;
 ```
+Memory leak occurs when `p` gets a new value
 
 ---
 
@@ -728,4 +742,133 @@ int *array = new int[size]; // size can be set at runtime
 To iterate through a dynamic array:
 ```c++
 for (int i = 0; i < size; i++)
-   *(array) +
+   *(array + i) = 0;
+```
+
+---
+- or:
+
+```c++
+for (int *i = array; i < array + size; i++)
+   *i = 0;
+```
+
+---
+
+- or:
+
+```c++
+for (int i = 0; i < size; i++)
+   array[i] = 0;
+```
+
+---
+
+To allocate a dynamic 2D array:
+
+```c++
+int **array = new int*[numRows];
+for (int row = 0; row < numRows; row++)
+   array[row] = new int[numCols];
+```
+---
+
+To deallocate a dynamic 2D array:
+```c++
+for (int row = 0; row < numRows; row++)
+   delete [] array[row];
+
+delete [] array;
+```
+
+---
+
+If a function returns a pointer, that pointer **may not** be the address of a local static variable:
+```c++
+int* foo() {
+   int x;
+   return &x; // invalid
+}
+```
+
+---
+
+A function may return the address of a dynamic variable:
+```c++
+int *foo() {
+   int *x = new int;
+   return x;
+}
+```
+
+---
+
+If a parameter is passed to a function *by value*, a copy is made and the original cannot be changed by the function.
+```c++
+int increment(int i) {
+   i++;
+}
+
+int var = -1;
+increment(var);
+// var is still -1
+```
+
+---
+
+If a parameter is passed to a function *by reference*, the function can operate on the original directly.
+```c++
+int increment(int &i) {
+   i++;
+}
+
+int var = -1;
+increment(var);
+// var is 0
+```
+
+---
+
+In a function's signature, the ampersand (`&`) **does not** mean "address of".
+
+---
+
+Pointers can be also passed to functions by value or by reference.
+```c++
+void incByValue(int* v) {
+   (*v)++;
+   v++; // no effect
+}
+
+void incByReference(int *&v) {
+   (*v)++;
+   v++;
+}
+```
+Both functions can modify the value their parameters are *pointing to*, but only the reference version can modify the pointer.
+
+---
+
+This is a shallow copy:
+```c++
+int *original = new int[5];
+// populate original...
+int *copy = original;
+```
+`copy` points to the same array as `original`.
+
+---
+
+This is a deep copy:
+```c++
+int *original = new int[5];
+// populate original...
+int *copy = new int[5];
+for (int i = 0; i < 5; i++)
+   copy[i] = original[i];
+```
+`copy` points to a newly-allocated array that has the same element values as `original`.
+
+---
+
+# End
