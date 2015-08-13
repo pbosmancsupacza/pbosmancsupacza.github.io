@@ -155,3 +155,11 @@ class C: public B {};
 class B2: public A {};
 ```
 ---
+
+Hierarchies can be depicted using diagrams
+
+---
+
+background-image: url(./res/ios.gif)
+
+---
