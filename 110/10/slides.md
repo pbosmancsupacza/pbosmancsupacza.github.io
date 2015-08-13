@@ -15,10 +15,6 @@ Specialized classes have an "*is a*"-relationship with generalized classes
 
 ---
 
-The "is a"-relationship is one-sided
-
----
-
 A Shiba Inu is a dog
 
 A train is a vehicle
@@ -29,7 +25,17 @@ A triangle is an instrument
 
 ---
 
-(But a dog is not a Shiba Inu)
+The "is a"-relationship is one-sided
+
+---
+
+A dog is not a Shiba Inu
+
+A vehicle is not a train
+
+A shape is not a square
+
+An instrument is not a triangle
 
 ---
 
@@ -100,7 +106,7 @@ public:
 
 ---
 
-The derived class has its own members as well as those of its base class:
+The derived class has access to its own members as well as those of its base class:
 
 ```c++
 int main() {
@@ -212,9 +218,8 @@ In UML, protected access is demarcated with a `#`
 
 ```c++
 class BaseClass {
-private: void privateFoo();
-protected: void protectedFoo();
-public: void publicFoo();
+protected:
+   void protectedFoo();
 };
 
 BaseClass baseObject;
@@ -223,9 +228,7 @@ baseObject.protectedFoo(); // BAD!
 class DerivedClass: public BaseClass {
 public:
    void foo() {
-      publicFoo();    // OK
       protectedFoo(); // OK
-      privateFoo();   // Bad!
    }
 };
 ```
