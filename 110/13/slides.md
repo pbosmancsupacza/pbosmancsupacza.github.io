@@ -17,6 +17,7 @@ Announcements:
 
 ---
 
+background-image: url(./res/blankcard1.jpg)
 # 1. Abstract base classes
 
 ---
@@ -61,7 +62,9 @@ A class is made abstract by making (at least) one of its functions *pure virtual
 
 ---
 
-# 2. Pure virtual functions
+background-image: url(./res/emptycase1.jpg)
+# 2. Pure virtual
+#    functions
 
 ---
 
@@ -133,7 +136,9 @@ AbstractBase::~AbstractBase() {}
 
 ---
 
-# 3. Multiple inheritance
+background-image: url(./res/powerrangers1.jpg)
+# 3. Multiple
+# inheritance
 
 ---
 
