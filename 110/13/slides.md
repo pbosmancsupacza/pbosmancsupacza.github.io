@@ -18,7 +18,8 @@ Announcements:
 ---
 
 background-image: url(./res/blankcard1.jpg)
-# 1. Abstract base classes
+# 1. Abstract
+# base classes
 
 ---
 
