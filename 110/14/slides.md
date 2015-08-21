@@ -2,13 +2,11 @@ layout: true
 class: middle
 
 ---
-  
-
 background-image: url(./res/glove.jpg)
 # Exceptions
 
 ---
-  
+
 
 Suppose you are implementing basic division:
 
@@ -21,7 +19,7 @@ double quot = num / den;
 This code is vulnerable to division-by-zero errors
 
 ---
-  
+
 
 You can implement basic error-checking using control statements:
 
@@ -35,7 +33,7 @@ else
 But if an error is prevented, the quotient isn't set.
 
 ---
-  
+
 
 If the above is part of a function, what should be returned when there is an error?
 
@@ -55,14 +53,14 @@ double divide(double num, double den) {
 Any value you return can be interpreted as a valid result.
 
 ---
-  
+
 
 Instead of using the result of an operation to signal an error, we can use a different channel.
 
 C++ provides such a channel through the concept of *exception handling*.
 
 ---
-  
+
 
 The concept:
 1. An *exception* is a value that signifies that an error occurred
@@ -71,19 +69,19 @@ The concept:
 2. If the tried code throws an exception, the exception is *caught* by other code that handles the error
 
 ---
-  
+
 
 ### 1. What is an exception?
 Any value, of any type, becomes an exception when it is *thrown*.
 
 ---
-  
+
 
 ### 2. How to throw an exception
 To throw a value, use the keyword `throw`, followed by the value.
 
 ---
-  
+
 
 For example:
 ```c++
@@ -100,7 +98,7 @@ throw pi;
 ```
 
 ---
-  
+
 
 In context:
 ```c++
@@ -114,13 +112,13 @@ double divide(double num, double den) {
 --
 (Note that, when the exception is thrown, nothing is returned)
 ---
-  
+
 
 ### 3. How to try code
 If a piece of code might throw an exception, put that code in a `try`-block, followed by everything that relies on successful execution of the code.
 
 ---
-  
+
 
 Example:
 ```c++
@@ -134,20 +132,20 @@ try {
 ```
 
 ---
-  
+
 
 ### 4. How to catch an exception
 An exception is caught by a `catch`-block. Error-handling code is written in the catch-block, and gets executed whenever an exception is caught.
 
 ---
-  
+
 
 NB: `try`- and `catch`-blocks must go together.
 
 Every `try`-block must be directly followed by at least one `catch`-block.
 
 ---
-  
+
 
 Example:
 ```c++
@@ -162,14 +160,14 @@ catch(string s) {
 ```
 
 ---
-  
+
 
 If an exception is thrown in a try-block, control is immediately transferred to the first type-matching catch-block. The rest of the try-block is skipped. After the catch-block is done, control continues after the try-catch structure.
 
 If no exception is thrown, the whole try-block is completed, and no catch-block code is run.
 
 ---
-  
+
 
 Longer example:
 ```c++
@@ -189,7 +187,7 @@ double divide(double num, double den) {
 ```
 
 ---
-  
+
 
 ```c++
 try {
@@ -208,7 +206,7 @@ cout << "done." << endl;
 ```
 
 ---
-  
+
 
 Notes:
 - different functions throw different types
@@ -218,19 +216,19 @@ Notes:
 - "done" is always printed
 
 ---
-  
+
 
 Exceptions can be thrown outside of try-catch blocks.
 
 Try-catch blocks don't have to catch all exceptions (might be wrong type).
 
 ---
-  
+
 
 If an exception is not caught in the current scope, it is thrown to a higher scope. This is called *unwinding the stack*. If there is no higher scope, the program quits.
 
 ---
-  
+
 
 ```c++
 void foo() {
@@ -259,7 +257,7 @@ int main() {
 ```
 
 ---
-  
+
 
 ```c++
 void foo() {
@@ -284,7 +282,7 @@ int main() {
 ```
 
 ---
-  
+
 
 A catch-block can re-throw an exception:
 
@@ -295,7 +293,7 @@ catch(int) {
 }
 ```
 ---
-  
+
 
 An exception is re-thrown to the outer scope, **not** to other catch blocks in the same structure.
 
@@ -322,12 +320,12 @@ void bar() {
 ```
 
 ---
-  
+
 
 You can throw class objects
 
 ---
-  
+
 
 E.g.
 ```c++
@@ -340,14 +338,14 @@ try {
 ```
 
 ---
-  
+
 
 "If an exception is thrown by the member function of a class object, then the class destructor
 is called. If statements in the try block or branching from the try block created any other
 objects, their destructors will be called as well." -- the textbook
 
 ---
-  
+
 
 Careful: Catch-blocks work polymorphically
 
@@ -366,9 +364,8 @@ try {
 ```
 
 ---
-  
+
 
 Depending on your needs, it might be sensible to create specific exception classes.
 
 ---
-  
