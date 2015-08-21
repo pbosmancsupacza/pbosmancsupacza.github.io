@@ -1,12 +1,9 @@
-layout: true
 class: middle
-
----
 background-image: url(./res/glove.jpg)
 # Exceptions
 
 ---
-
+class: middle
 
 Suppose you are implementing basic division:
 
@@ -19,7 +16,7 @@ double quot = num / den;
 This code is vulnerable to division-by-zero errors
 
 ---
-
+class: middle
 
 You can implement basic error-checking using control statements:
 
@@ -33,7 +30,7 @@ else
 But if an error is prevented, the quotient isn't set.
 
 ---
-
+class: middle
 
 If the above is part of a function, what should be returned when there is an error?
 
@@ -53,14 +50,14 @@ double divide(double num, double den) {
 Any value you return can be interpreted as a valid result.
 
 ---
-
+class: middle
 
 Instead of using the result of an operation to signal an error, we can use a different channel.
 
 C++ provides such a channel through the concept of *exception handling*.
 
 ---
-
+class: middle
 
 The concept:
 1. An *exception* is a value that signifies that an error occurred
@@ -69,19 +66,19 @@ The concept:
 2. If the tried code throws an exception, the exception is *caught* by other code that handles the error
 
 ---
+class: middle
 
-
-### 1. What is an exception?
+### 1. What is an *exception*?
 Any value, of any type, becomes an exception when it is *thrown*.
 
 ---
+class: middle
 
-
-### 2. How to throw an exception
+### 2. How to *throw* an exception
 To throw a value, use the keyword `throw`, followed by the value.
 
 ---
-
+class: middle
 
 For example:
 ```c++
@@ -98,7 +95,7 @@ throw pi;
 ```
 
 ---
-
+class: middle
 
 In context:
 ```c++
@@ -112,14 +109,15 @@ double divide(double num, double den) {
 --
 (Note that, when the exception is thrown, nothing is returned)
 ---
+class: middle
 
-
-### 3. How to try code
+### 3. How to *try* code
 If a piece of code might throw an exception, put that code in a `try`-block, followed by everything that relies on successful execution of the code.
 
 ---
+class: middle
 
-
+.nop[]
 Example:
 ```c++
 double num, den;
@@ -132,21 +130,22 @@ try {
 ```
 
 ---
+class: middle
 
-
-### 4. How to catch an exception
+### 4. How to *catch* an exception
 An exception is caught by a `catch`-block. Error-handling code is written in the catch-block, and gets executed whenever an exception is caught.
 
 ---
 
-
+class: middle
+.nop[]
 NB: `try`- and `catch`-blocks must go together.
 
 Every `try`-block must be directly followed by at least one `catch`-block.
 
 ---
-
-
+class: middle
+.nop[]
 Example:
 ```c++
 try
@@ -160,14 +159,14 @@ catch(string s) {
 ```
 
 ---
-
+class: middle
 
 If an exception is thrown in a try-block, control is immediately transferred to the first type-matching catch-block. The rest of the try-block is skipped. After the catch-block is done, control continues after the try-catch structure.
 
 If no exception is thrown, the whole try-block is completed, and no catch-block code is run.
 
 ---
-
+class: middle
 
 Longer example:
 ```c++
@@ -187,7 +186,7 @@ double divide(double num, double den) {
 ```
 
 ---
-
+class: middle
 
 ```c++
 try {
@@ -206,8 +205,8 @@ cout << "done." << endl;
 ```
 
 ---
-
-
+class: middle
+.nop[]
 Notes:
 - different functions throw different types
 - different catch-blocks catch different types
@@ -216,40 +215,40 @@ Notes:
 - "done" is always printed
 
 ---
-
+class: middle
 
 Exceptions can be thrown outside of try-catch blocks.
 
 Try-catch blocks don't have to catch all exceptions (might be wrong type).
 
 ---
-
+class: middle
 
 If an exception is not caught in the current scope, it is thrown to a higher scope. This is called *unwinding the stack*. If there is no higher scope, the program quits.
 
 ---
-
+class: middle
 
 ```c++
 void foo() {
-  throw 1;
+  throw 1; // thrown to bar
 }
 
 void bar() {
   try {
-    foo();
-  } catch(char) {
-  }
+    foo(); // throws 1
+  } catch(char) { // doesn't catch 1
+  } // 1 is not handled, so it is thrown to baz
 }
 
 void baz() {
-  bar();
+  bar(); // 1 is not handled; thrown to main
 }
 
 int main() {
   try {
     baz();
-  } catch (int) {
+  } catch (int) { // 1 is caught and handled
     cout << "caught an int";
   }
   return 0;
@@ -257,7 +256,7 @@ int main() {
 ```
 
 ---
-
+class: middle
 
 ```c++
 void foo() {
@@ -276,13 +275,14 @@ void baz() {
 }
 
 int main() {
-  baz();
+  baz(); // 1 is not caught and handled, so the program quits
+  cout << "something"; // not printed!
   return 0;
 }
 ```
 
 ---
-
+class: middle
 
 A catch-block can re-throw an exception:
 
@@ -293,7 +293,7 @@ catch(int) {
 }
 ```
 ---
-
+class: middle
 
 An exception is re-thrown to the outer scope, **not** to other catch blocks in the same structure.
 
@@ -320,12 +320,12 @@ void bar() {
 ```
 
 ---
-
+class: middle
 
 You can throw class objects
 
 ---
-
+class: middle
 
 E.g.
 ```c++
@@ -338,16 +338,9 @@ try {
 ```
 
 ---
+class: middle
 
-
-"If an exception is thrown by the member function of a class object, then the class destructor
-is called. If statements in the try block or branching from the try block created any other
-objects, their destructors will be called as well." -- the textbook
-
----
-
-
-Careful: Catch-blocks work polymorphically
+.nop[]Careful: Catch-blocks work polymorphically
 
 ```c++
 class Base {};
@@ -362,10 +355,53 @@ try {
 }
 // will print "Base"
 ```
+If a base-class catch block is before a derived-class catch block, then the derived-class catch block will never run!
 
 ---
-
+class: middle
 
 Depending on your needs, it might be sensible to create specific exception classes.
+
+---
+class: middle
+.nop[]Example:
+
+```c++
+class DivisionByZeroException {};
+
+double divide(double num, double den) {
+  DivisionByZeroException z;
+  if (num == 0)
+    throw z;
+  return num/den;
+}
+
+try {
+   double result = divide(num, den);
+   cout << "result: " << result;
+} catch (DivisionByZeroException e) {
+   cout << "failed to parse" << endl;
+}
+```
+
+---
+class:middle
+
+You can even equip your custom classes to handle exceptions better
+
+```c++
+class ExceptionClass {
+   string message;
+public:
+   ExceptionClass(string s): message(s) {}
+   string getMessage() {return message;}
+};
+
+try {
+   throw ExceptionClass("division by zero");
+} catch (ExceptionClass e) {
+   cout << e.getMessage() << endl;
+}
+```
 
 ---
