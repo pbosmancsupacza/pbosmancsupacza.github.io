@@ -6,6 +6,7 @@ Templates let you create classes and functions where some of the types are gener
 ---
 class:middle
 Templates start with the *template prefix*:
+
 .big[.red1[`template`].blue1[`<`].green1[`class`] .blue2[`T`].blue1[`>`]]
 
 .nop[.]
@@ -78,8 +79,8 @@ void cat(T x, U y) {
 class:middle
 Function templates can be overloaded.
 ---
-Example 1:
 class:middle
+Example 1:
 ```c++
 template <class T>
 void foo(T) {
