@@ -324,3 +324,82 @@ g++ main.cpp listInst.o -o main
 class:middle
 With this method, you have to make sure that the instantiation file is up to date with all the types you are going to need elsewhere.
 ---
+class:middle
+## Deleting
+---
+class:middle
+The process for deleting a node is as follows:
+1. Find the node you want to delete
+2. Let the node before it link to the node after it (now the node is no longer logically in the list)
+3. Deallocate the node
+Special cases:
+1. If the node to delete is the first node, then there is no previous node to adjust, but you have to move `head` to the next node
+2. If list is empty or the node is otherwise not in the list, this must be handled... somehow (or ignored)
+---
+class:middle
+```c++
+template <class T>
+void LinkedList<T>::delete(T d) {
+	LinkedList<T>::Node  *current = head,
+								*prev = 0;
+	while (current && current->data != d) {
+		prev = current;
+		current = current->next;
+	}
+
+	if (head == 0 || current == 0) {
+		return; // or throw an exception
+	} else if (prev == 0) {
+		head = current->next;
+		delete current;
+	} else {
+		prev->next = current->next;
+		delete current;
+	}
+}
+```
+---
+class:middle
+## Destructor
+---
+class:middle
+.nop[**]
+A non-empty linked list has dynamically-allocated node objects. The linked list's destructor should take care of deallocating all the nodes. This can be done easily by traversing through the list and deallocating each node.
+---
+class:middle
+Suppose your linked list class has an `isEmpty()` function:
+```c++
+template <class T>
+bool LinkedList<T>::isEmpty() { return head == 0; }
+```
+as well as a `removeHead()`:
+```c++
+template <class T>
+void LinkedList<T>::removeHead() {
+	LinkedList<T>::Node *oldHead = head;
+	head = head->next;
+	delete oldHead;
+}
+```
+---
+class:middle
+Then you can easily deallocate your entire list with this loop:
+```c++
+while (!isEmpty())
+	removeHead();
+```
+---
+class:middle
+This code for a destructor does the same thing:
+```c++
+template <class T>
+LinkedList<T>::~LinkedList() {
+      LinkedList<T>::Node *tmp;
+      while (head) { // while the list isn't empty
+         tmp = head->next; // save a pointer to the second element
+         delete head; // deallocate the first element
+         head = tmp; // logically remove the first element
+      }
+}
+```
+---
