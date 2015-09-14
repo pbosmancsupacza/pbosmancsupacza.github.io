@@ -1,6 +1,6 @@
 class:middle
-#Linked lists as templates
-## and nodes as classes
+## LINKED LISTS AS TEMPLATES
+### *AND NODES AS CLASSES*
 ---
 class:middle
 Previously, we defined `Node` as a struct in the linked list class
