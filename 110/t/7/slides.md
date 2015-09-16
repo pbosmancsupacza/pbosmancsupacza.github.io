@@ -1,5 +1,5 @@
 class:middle
-# Linked Lists
+# LINKED LISTS
 ---
 class:middle
 ![](./i/list.jpg)
@@ -21,7 +21,7 @@ struct Node {
 	Node *next; // self-referential
 };
 ```
-This node stores `double` data elements.
+This node stores `double` data elements..nop[**]
 ---
 class:middle
 Linked list code:
