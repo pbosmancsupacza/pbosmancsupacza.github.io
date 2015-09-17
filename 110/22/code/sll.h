@@ -18,9 +18,9 @@ class SLList {
 	} *head;
 public:
       SLList();
-      void append(T d);
       void printContents();
 		void printReverse();
+      void append(T d);
       void insert(T d);
       void remove(T d);
       bool isEmpty() {
@@ -31,18 +31,6 @@ public:
 
 template <class T>
 SLList<T>::SLList() : head(0) {
-}
-
-template <class T>
-void SLList<T>::append(T d) {
-	if (head == 0) {
-		head = new SLList<T>::Node(d);
-	} else {
-		SLList<T>::Node *current = head;
-		while (current->next != 0)
-			current = current->next;
-		current->next = new SLList<T>::Node(d);
-	}
 }
 
 template <class T>
@@ -69,6 +57,18 @@ void SLList<T>::printReverse() {
 	cout << endl;
 }
 
+
+template <class T>
+void SLList<T>::append(T d) {
+	if (head == 0) {
+		head = new SLList<T>::Node(d);
+	} else {
+		SLList<T>::Node *current = head;
+		while (current->next != 0)
+			current = current->next;
+		current->next = new SLList<T>::Node(d);
+	}
+}
 
 template <class T>
 void SLList<T>::insert(T d) {
