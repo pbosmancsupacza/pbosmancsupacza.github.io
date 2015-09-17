@@ -257,28 +257,35 @@ for ( list<int>::iterator i = myList.begin();
 ```
 ---
 ###`rbegin` and `rend`
-return iterators to use when traversing a list in reverse
+return reverse_iterators to use when traversing a list in reverse
 ```c++
-for ( list<int>::iterator i = myList.rbegin();
-      i != myList.rend();
-      i++ ) {
+for ( list<int>::reverse_iterator ri = myList.rbegin();
+      ri != myList.rend();
+      ri++ ) {
 	// ...
 }
 ```
 `rbegin` points the last element
 
 `rend` represents the position *beyond* the first element
+
+note that we still traverse using `++`
+---
+###`begin`, `end`, `rbegin` and `rend`
+are all *bidirectional* iterators, so you can traverse the list in either direction using `++` or `--`
+
+`iterator`s and `reverse_iterators` are **not** interchangeable, and most functions that take an `iterator` do **not** have an overloaded version that takes a `reverse_iterator`
 ---
 ###`insert`
 inserts a given element into the position just before a given iterator
 
 e.g. if `myList` contains
 ```
-1 2 4 16
+1 2 4 8
 ```
 then after the statement
 ```c++
-myList.insert(myList.end(), 8);
+myList.insert(myList.end(), 16);
 ```
 it will contain
 ```
@@ -311,12 +318,16 @@ e.g. if myList contains
 then the statements
 ```c++
 list<int>::iterator i = myList.begin(),
-	j = myList.rbegin();
-i++;
+	j = myList.begin();
+i++; // -> 20
 j++;
+j++;
+j++; // -> 22
 myList.erase(i, j);
 ```
-will remove 20, 21 and 22
+will remove 20 and 21, but not 22
+
+the first iterator must precede the second in the list, else a seg fault will occur
 ---
 ###`splice`
 moves all the elements of a given list into the calling list at the position just before a given iterator, without requiring that either list should be sorted
