@@ -101,14 +101,12 @@ void DLList<T>::insert(T d) {
 	while (current && current->next && current->next->data < d) {
 		current = current->next;
 	}
-   if (current == head && (!current || current->data > d)) {
+   if (current == head && (!current || current->data > d))
       head = new DLList<T>::Node(d, 0, current);
-   } else {
-		if (current->next)
-			current->next = current->next->prev = new DLList<T>::Node(d, current, current->next);
-		else
-      	current->next = new DLList<T>::Node(d, current, current->next);
-   }
+	else if (current->next)
+		current->next = current->next->prev = new DLList<T>::Node(d, current, current->next);
+	else
+   	current->next = new DLList<T>::Node(d, current, current->next);
 }
 
 template <class T>
