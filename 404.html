@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>COS Notes etc</title>
+<script src="lib/marked.js"></script>
+<style>
+@import url(http://fonts.googleapis.com/css?family=Roboto+Condensed);
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700,400italic);
+p {
+font-family: 'Droid Sans';
+font-size: 1em;
+}
+h1, h2, h3 {
+font-family: 'Roboto Condensed';
+font-weight: bold;
+}
+.content {
+margin-left:200px;
+margin-right:200px;
+margin-top:100px;
+margin-bottom:100px;
+}
+a:link{
+color: #74828f;
+}
+a:visited{
+color: #525564;
+}
+a:hover{
+color: #96C0CE;
+}
+</style>
+</head>
+<body>
+<!-- processed html content goes here -->
+<div id="content" class="content"></div>
+<!-- process md to html -->
+<script type="text/javascript">
+var c = '# COS Notes and Slides\n' +
+    '---\n\n' +
+    '## COS110\n' +
+    '### Lectures\n' +
+    'Lecture 2 [notes](./110/2/notes.md) | [slides](./110/2/slides.html)\n\n' +
+    'Lecture 3 [notes](./110/3/notes.md) | [slides](./110/3/slides.html)\n\n' +
+    'Lecture 4 [slides](./110/4/slides.html)\n\n' +
+    'Lecture 5 [slides](./110/5/slides.html)\n\n' +
+    'Lecture 6 [slides](./110/6/slides.html)\n\n' +
+    'Lecture 7 [slides](./110/7/slides.html)\n\n' +
+    'Lecture 8 [slides](./110/8/slides.html)\n\n' +
+    'Lecture 9 [slides](./110/9/slides.html)\n\n' +
+    'Lecture 10 [slides](./110/10/slides.html)\n\n' +
+    'Lecture 11 [slides](./110/11/slides.html)\n\n' +
+    'Lecture 12 [slides](./110/12/slides.html)\n\n' +
+    'Lecture 13 [slides](./110/13/slides.html)\n\n' +
+    'Lecture 14 [slides](./110/14/slides.html)\n\n' +
+    'Lecture 15 [slides](./110/15/slides.html)\n\n' +
+    'Lecture 16 [slides](./110/16/slides.html)\n\n' +
+    'Lecture 17 [slides](./110/17/slides.html)\n\n' +
+    'Lecture 18-20 [slides](./110/18.19.20/slides.html)\n\n' +
+    'Lecture 21 [slides](./110/21/slides.html)\n\n' +
+    'Lecture 22 [slides](./110/22/slides.html)\n\n' +
+    'Lecture 23 [slides](./110/23/slides.html)\n\n' +
+    'Lecture 24 [slides](./110/24/slides.html)\n\n' +
+    '### Tutorials\n' +
+    'Tutorial 2 [slides](./110/t/2/slides.html)\n\n' +
+    'Tutorial 3 [slides](./110/t/3/slides.html)\n\n' +
+    'Tutorial 4 [slides](./110/t/4/slides.html)\n\n' +
+    'Tutorial 6 [slides](./110/t/6/slides.html)\n\n' +
+    'Tutorial 7 [slides](./110/t/7/slides.html)\n\n' +
+    'Tutorial 8 [slides](./110/t/8/slides.html)\n\n'
+document.getElementById('content').innerHTML =
+marked(c);
+</script>
+</body>
+</html>
