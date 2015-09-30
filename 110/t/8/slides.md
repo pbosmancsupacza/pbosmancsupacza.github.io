@@ -92,9 +92,11 @@ class DoublyLinkedList {
 
 The `next` of the last element, if any, points back to the first. If there is only one element, its `next` link points to itself.
 
+Instead of keeping track of the `head` of the list, it can be more efficient to keep track of the `tail`.
+
 Some things to keep in mind:
 - To check if an element is the last in the list, check if its `next` is `head`
-- When modifying or removing the first element, remember to change both the `head` and the `next` of the last element
+- When modifying or removing the first element, remember to change both the `head` or `tail` as well as the `next` of the preceding element
 ---
 # STL list
 The Standard Template Library provides a class called `list`, which is a data structure implemented as a doubly linked list with links to the head and the tail of the list.
