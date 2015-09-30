@@ -129,7 +129,7 @@ template<class T>
 void Stack<T>::pop(T &element) {
 	if (isEmpty())
 		throw "Stack is empty!";
-	num = stackArray[top--];
+	element = stackArray[top--];
 }
 ```
 ---
@@ -168,7 +168,7 @@ void IntStack::add() {
 ---
 ## Calculator stacks
 ```c++
-void IntStack::add() {
+void IntStack::subtract() {
 	int num, diff;
 	pop(diff);
 	pop(num);
