@@ -190,7 +190,7 @@ Which end of the list should be the top?
 --
 
 
-Since we only ever access the top directly, it makes sense to regard the **front** (head) of the list as the top.
+It might be tempting to say that the last element should be the top, like it is in the static array implementation. But, since we only ever access the top directly, it makes sense to regard the **front** (head) of the list as the top.
 --
 
 
