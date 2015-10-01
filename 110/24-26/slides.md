@@ -405,45 +405,19 @@ public:
    // etc
 };
 ```
+--
+
+We could abstract the container in which to store elements in a stack like this using a template.
 ---
 ## STL stacks
 The C++ libraries provide a special class called `stack`. Stack isn't actually a complete container; it is called a *container adaptor*, meaning it adapts other containers to act like stacks.
 --
 
 
-**Note that** `stack` regards the **back** of the container it uses as its top. Any container with correctly functioning methods called `back()`, `push_back()`, and `pop_back()` can be adapted by the `stack` adaptor to act like a stack.
---
+**Note that** `stack` regards the **back** of the container it uses as its top. Certain containers with `back()`, `push_back()`, and `pop_back()` methods can be adapted by the `stack` adaptor to act like a stack.
 
+---
 
-The STL `stack` provides these public member functions:
-- push
-- pop
-- top
-- empty
-- size
-- swap
-- emplace
----
-## STL stacks - basic functions
-### push
-`push` works just like we would expect: it adds the element passed as a parameter to the back of its inner container.
-### pop
-`pop` removes the top element from the stack (by calling `pop_back` on the inner container), but it doesn't return the top element - neither as a return value, nor as a reference parameter. To access the top element, you must use `top`.
-### top
-`top` simply returns the top element without modifying the stack.
----
-## STL stacks - basic functions
-### empty
-This function returns `true` if the inner list - and hence the stack - is empty.
-### size
-This function returns the number of elements in the stack.
----
-## STL stacks - other functions
-### swap
-This function takes another stack as a parameter by reference. It swaps the contents of itself with that of the other stack by swapping the contents of their inner structures.
-### emplace
-This function is only available in C++11. It performs basically the same task as `push`, but if the object that is pushed to the stack has a constructor, this function ensures that the object will be constructed in place and not be copied or moved unnecessarily.
----
 ## STL stacks
 When you declare a stack, you can specify which type it should use as an inner container:
 ```c++
@@ -462,8 +436,9 @@ int main() {
 
 In this example, the stack stores `int`s in a `vector` that also stores `ints`.
 ---
-### Note
-Prior to C++11, compilers would take the `>>` part of a fragment like `stack<int,vector<int>>` as the stream insertion operator, so you should separate like-sided angled brackets with a space, like in `stack<int,vector<int> >`
+### Notes
+1. Prior to C++11, compilers would take the `>>` part of a fragment like `stack<int,vector<int>>` as the stream insertion operator, so you should separate like-sided angled brackets with a space, like in `stack<int,vector<int> >`
+2. The inner container must be a so-called `SequenceContainer` and provide push_-, pop_- and back functions. You can use a stack with a vector, a list, or a deque.
 ---
 ## STL stacks
 You can also construct a stack from an existing container:
@@ -495,4 +470,35 @@ int main() {
 }
 ```
 ...then your stack will use a `deque<float>` object to store your `float` elements.
+---
+## STL stacks
+
+The STL `stack` provides these public member functions:
+- push
+- pop
+- top
+- empty
+- size
+- swap
+- emplace
+---
+## STL stacks - basic functions
+### push
+`push` works just like we would expect: it adds the element passed as a parameter to the back of its inner container.
+### pop
+`pop` removes the top element from the stack (by calling `pop_back` on the inner container), but it doesn't return the top element - neither as a return value, nor as a reference parameter. To access the top element, you must use `top`.
+### top
+`top` simply returns the top element without modifying the stack.
+---
+## STL stacks - basic functions
+### empty
+This function returns `true` if the inner list - and hence the stack - is empty.
+### size
+This function returns the number of elements in the stack.
+---
+## STL stacks - other functions
+### swap
+This function takes another stack as a parameter by reference. It swaps the contents of itself with that of the other stack by swapping the contents of their inner structures.
+### emplace
+This function is only available in C++11. It performs basically the same task as `push`, but if the object that is pushed to the stack has a constructor, this function ensures that the object will be constructed in place and not be copied or moved unnecessarily.
 ---
