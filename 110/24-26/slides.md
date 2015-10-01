@@ -502,3 +502,5 @@ This function takes another stack as a parameter by reference. It swaps the cont
 ### emplace
 This function is only available in C++11. It performs basically the same task as `push`, but if the object that is pushed to the stack has a constructor, this function ensures that the object will be constructed in place and not be copied or moved unnecessarily.
 ---
+## STL stacks
+For more info, check out cppreference's [page on stacks](http://en.cppreference.com/w/cpp/container/stack)

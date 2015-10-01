@@ -25,7 +25,7 @@ int main() {
    myDeque1.push_back('y');
    myDeque1.push_back('z');
    stack<char> myStack2(myDeque1);
-   /*
+   /* doesn't work!
    stack<int, myContainer> myStack3;
    */
 }
