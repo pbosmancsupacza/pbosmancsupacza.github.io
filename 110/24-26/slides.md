@@ -349,3 +349,150 @@ void DStack<T>::isEmpty() {
 Why even store the result of a single expression in a variable if you are going to return it immediately? That's just wasteful.
 ---
 Rant over.
+---
+## STL stacks
+
+It's possible to use a vector as a stack by limiting yourself to only using certain methods. If you regard the front of a vector as a stack's top, then, if you only use `push_front()`, `pop_front()`, and `front()`, the vector acts exactly like a stack.
+--
+
+
+To conform to the interface we normally associate with stacks, we can apply this idea, but create a new class called `vectorStack` that uses a vector as a private inner container, and provides public functions called `push`, `pop`, etc. that reroute their actions to the inner container.
+---
+## STL stacks
+A stack that uses a vector to store elements:
+```c++
+#include <vector>
+using namespace std;
+template <class T>
+class vectorStack {
+private:
+   vector<T> v;
+public:
+   void push(T el) {v.push_front(el);}
+   void pop() {v.pop_front();}
+   // etc
+};
+```
+---
+## STL stacks
+You can also use an STL list:
+```c++
+#include <list>
+using namespace std;
+template <class T>
+class listStack {
+private:
+   list<T> l;
+public:
+   void push(T el) {l.push_front(el);}
+   void pop() {l.pop_front();}
+   // etc
+};
+```
+---
+## STL stacks
+... or a deque:
+```c++
+#include <deque>
+using namespace std;
+template <class T>
+class dequeStack {
+private:
+   deque<T> d;
+public:
+   void push(T el) {d.push_front(el);}
+   void pop() {d.pop_front();}
+   // etc
+};
+```
+---
+## STL stacks
+The C++ libraries provide a special class called `stack`. Stack isn't actually a complete container; it is called a *container adaptor*, meaning it adapts other containers to act like stacks.
+--
+
+
+**Note that** `stack` regards the **back** of the container it uses as its top. Any container with correctly functioning methods called `back()`, `push_back()`, and `pop_back()` can be adapted by the `stack` adaptor to act like a stack.
+--
+
+
+The STL `stack` provides these public member functions:
+- push
+- pop
+- top
+- empty
+- size
+- swap
+- emplace
+---
+## STL stacks - basic functions
+### push
+`push` works just like we would expect: it adds the element passed as a parameter to the back of its inner container.
+### pop
+`pop` removes the top element from the stack (by calling `pop_back` on the inner container), but it doesn't return the top element - neither as a return value, nor as a reference parameter. To access the top element, you must use `top`.
+### top
+`top` simply returns the top element without modifying the stack.
+---
+## STL stacks - basic functions
+### empty
+This function returns `true` if the inner list - and hence the stack - is empty.
+### size
+This function returns the number of elements in the stack.
+---
+## STL stacks - other functions
+### swap
+This function takes another stack as a parameter by reference. It swaps the contents of itself with that of the other stack by swapping the contents of their inner structures.
+### emplace
+This function is only available in C++11. It performs basically the same task as `push`, but if the object that is pushed to the stack has a constructor, this function ensures that the object will be constructed in place and not be copied or moved unnecessarily.
+---
+## STL stacks
+When you declare a stack, you can specify which type it should use as an inner container:
+```c++
+#include <vector>
+#include <stack>
+using namespace std;
+int main() {
+   stack<int, vector<int> > myStack;
+}
+```
+--
+
+`stack` takes two *type parameters*:
+1. The type of the element to be stored in the stack
+2. The type of the container to store the elements in internally
+
+In this example, the stack stores `int`s in a `vector` that also stores `ints`.
+---
+### Note
+Prior to C++11, compilers would take the `>>` part of a fragment like `stack<int,vector<int>>` as the stream insertion operator, so you should separate like-sided angled brackets with a space, like in `stack<int,vector<int> >`
+---
+## STL stacks
+You can also construct a stack from an existing container:
+```c++
+#include <list>
+#include <stack>
+using namespace std;
+int main() {
+   list<char> myList;
+   myList.push_back('x');
+   myList.push_back('y');
+   myList.push_back('z');
+   stack<char, list<char> > myStack(myList);
+}
+```
+Here it's important to remember which side of the container is regarded as the top of the stack - it's the **back**.
+---
+## STL stacks
+`stack` is declared as:
+```c++
+template <class T, class Container = deque<T> > class stack;
+```
+In other words, `stack` uses `deque<T>` as the *default type* for the container to store elements in, so if you do something like this:
+```c++
+#include <stack>
+using namespace std;
+int main() {
+   stack<float> myStack();
+}
+```
+...then your stack will use a `deque<float>` object to store your `float` elements.
+---
