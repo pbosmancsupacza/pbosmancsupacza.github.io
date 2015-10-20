@@ -171,7 +171,7 @@ void Queue<T>::dequeue(T &item) {
    front++;
    front %= queueSize;
 
-   item = queueSize[front];
+   item = queue[front];
    numItems--;
 }
 ```
