@@ -105,6 +105,7 @@ public:
 }
 #endif
 ```
+.nop[*]
 ---
 ### Static queue - code
 `queue.cpp:`
@@ -206,3 +207,116 @@ void Queue<T>::clear() {
 }
 ```
 ---
+## Dynamic queue
+A dynamically implemented queue is structured much like a linked list. Each element in stored in a node, and each node has a link to the next node.
+
+A dynamic implementation offers some advantages over a static implementation:
+- The size can change at runtime, so a capacity doesn't have to be determined beforehand
+- Nodes can be added or removed without us having to worry about where everything is in memory, which is more intuitive than the static implementation
+- The queue won't get full
+- No unnecessary memory is used for unused capacity
+---
+### Dynamic queue - front and rear
+Our dynamic queue implementation will differ from the linked list and dynamic stack implementations we've seen so far, in that the queue class will maintain two pointers: one to the front of the queue, and one to the rear. Having both allows us to dequeue from the front and enqueue to the rear very efficiently, because there is no need to traverse the entire list to reach either end. We just have to take care to adjust these pointers when we enqueue or dequeue.
+---
+### Dynamic queue - code
+```c++
+template <class T>
+class Queue {
+   class Node {
+   public:
+      T value;
+      Node *next;
+      Node (T v, Node *n=0): value(v), next(n) {}
+   } *front, *rear;
+   int numItems;
+public:
+   Queue();
+   ~Queue();
+   void enqueue(T);
+   void dequeue(T&); // note the return mechanism
+   bool isEmpty() const;
+   // we don't need isFull() because the queue is never full
+   void clear();
+}
+```
+We used a different `Node` class than the textbook does; make sure to also check out the textbook's version.
+.nop[*]
+---
+### Dynamic queue - code
+The constructor just initializes all pointers to NULL, and the number of items to zero.
+```c++
+template <class T>
+Queue<T>::Queue() {
+   front = 0;
+   rear = 0;
+   numItems = 0;
+}
+```
+---
+### Dynamic queue - code
+The destructor calls `clear`, which will be defined shortly, to deallocate all nodes in the queue.
+```c++
+template <class T>
+Queue<T>::~Queue() {
+   clear();
+}
+```
+---
+### Dynamic queue - code
+Enqueue allocates a new node, sets its value to the item to be enqueued, and inserts it at the rear of the queue if it isn't empty. If the queue is empty, both `front` and `rear` are pointed to the new node.
+```c++
+template <class T>
+void Queue<T>::enqueue(T el) {
+   if (!isEmpty()) {
+      rear = rear->next = new Node(el);
+      // remember that = associates from right to left, so
+      // this is equivalent to:
+      //    rear->next = new Node(el);
+      //    rear = rear->next;
+   } else {
+      front = rear = new Node(el);
+   }
+}
+```
+---
+### Dynamic queue - code
+Dequeue saves the value of the front item into the reference parameter, logically removes the front element from the queue by advancing `front` to the next element, deallocates the node using `delete`, and decrements the number of items.
+
+If there was only one element left in the queue, `rear` would still be pointing to it, so we can also set `rear` to `null` in this case. Although, since `isEmpty()` uses `numItems` and not the value of `rear` to determine whether there are still elements left, this isn't necessary.
+```c++
+template <class T>
+void Queue<T>::dequeue(T &num) {
+   if (isEmpty()) throw "Queue is empty!";
+   item = front->value;
+   if (front == rear)
+      rear = 0;
+   Node *tmp = front;
+   front = front->next;
+   delete tmp;
+   numItems--;
+}
+
+```
+.nop[*]
+---
+### Dynamic queue - code
+The queue is empty if there are no items.
+```c++
+template <class T>
+bool Queue<T>::isEmpty() {
+   return numItems == 0;
+}
+```
+---
+### Dynamic queue - code
+To clear the queue, we can repeatedly dequeue items until it is empty.
+```c++
+template <class T>
+void Queue<T>::clear() {
+   int dummy; // we don't care about the values we dequeue
+   // but we still have to give the function a parameter
+   while (!isEmpty())
+      dequeue(dummy);
+}
+```
