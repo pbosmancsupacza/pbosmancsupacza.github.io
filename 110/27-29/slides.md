@@ -22,7 +22,7 @@ As with stacks, we will look at two ways to implement queues, namely
 - as an array (statically), and
 - as a linked list (dynamically)
 ---
-## Static queue implementation
+# Static queue implementation
 As with stacks, a static queue implementation will use an array to store elements, and one or more indices to keep track of the positions of the back and potentially the front of the queue.
 ---
 ## Static queue implementation - enqueue
@@ -207,7 +207,7 @@ void Queue<T>::clear() {
 }
 ```
 ---
-## Dynamic queue
+# Dynamic queue
 A dynamically implemented queue is structured much like a linked list. Each element in stored in a node, and each node has a link to the next node.
 
 A dynamic implementation offers some advantages over a static implementation:
@@ -320,3 +320,110 @@ void Queue<T>::clear() {
       dequeue(dummy);
 }
 ```
+---
+# STL `deque` and `queue` containers
+The standard template library provides two queue-like ADTs: `deque` and `queue`.
+---
+## STL deque
+A deque (**d**ouble-**e**nded **que**ue; pronounced "deck") is like a vector that affords quick access (for both removal and insertion) at both ends. .nop[**]
+
+`deque` provides mostly the same interface as `vector`, but is usually implemented very differently, making certain operations more or less efficient for one than for the other. Specifically, inserting elements at the beginning of a `deque` is more efficient than it is in a `vector`.
+
+Like a `vector`, a `deque` provides random access to any of its elements via `at` and `[]`, and specific access to its front and rear elements via the usual `front`, `push_front`, `pop_front` etc functions. Since we are discussing deques in the context of cues, though, we are only interested in using `push_back`, `pop_front` and `front`, which together provide queue-like behaviour.
+---
+## STL deque as a queue
+To use a `deque` as a queue, we must substitute `enqueue` and `dequeue` with some of `deque`'s operations. We will still consider the rear of the deque as the position to enqueue items, and the front as the position to dequeue.
+
+To enqueue an element `x` into a `deque`, we can simply call `push_back(x)` on the deque.
+
+To dequeue an element `x` from a `deque`, we must first retrieve the element with a call to `front()`, which will return the element (note that this is different from our previous implementation of dequeue, where the element was not returned, but set as a reference parameter). Then, to remove it from the deque, we call `pop_front()` on the deque.
+---
+## STL deque example
+This example demonstrates how you can use a `deque` as a queue
+```c++
+#include <deque>
+using namespace std;
+int main() {
+   deque<char> charQ1;
+   deque<char> charQ2;
+
+   // push a couple of elements into queue 1
+   for (char c = 'a'; c < 'f'; c++)
+      charQ1.push_back(c);
+
+   // dequeue all elements from queue 1 to queue 2
+   while (!charQ1.empty()) {
+      charQ2.push_back(charQ1.front());
+      charQ1.pop_front();
+   }
+}
+```
+---
+## STL queue
+Like the STL stack ADT, the queue ADT is actually not a container, but a container adapter. It uses a container (which can be a `vector`, `list` or `deque`) to store elements in internally, and provides a queue-like interface to clients.
+
+`queue` provides the a similar interface to `stack`'s for inserting, removing and retrieving elements, but changes their meaning:
+- `void push(T)` inserts an element to the back of the container
+- `void pop()` removes the **front** element from the container (remember that in `stack`, it removed the back) (note that nothing is returned)
+- `T front()` returns the value of the front element
+- `T back()` returns the value of the back element
+
+Note that this ADT allows us to retrieve both the front and back elements of a queue. This does not invalidate its queue-like behaviour; that is still determined by the fact that elements are added to the rear and removed from the front.
+---
+## STL queue initialization examples
+You can initialize a queue in several ways:
+```c++
+#include <queue>
+#include <deque>
+#include <list>
+#include <vector>
+using namespace std;
+int main() {
+   // create a queue that stores ints in a deque:
+   queue<int, deque<int> > intDequeQueue;
+   // this one stores chars in a list:
+   queue<char, list<char> > charListQueue;
+   // this one stores floats in a vector:
+   queue<float, vector<float> > floatVectorQueue;
+   // the default container type is deque<T>,
+   // so this one stores doubles in a deque<double>:
+   queue<double> doubleDequeQueue;
+   // you can initialize a queue with an existing container:
+   vector<long> longVector;
+   longVector.push_back(0);
+   queue<long, vector<long> > longVectorQueue(longVector);
+}
+```
+---
+## STL queue initialization
+Notes about initializing deques:
+- The default container type is `deque<T>`, so if you only provide `T` (the type to store), a `queue` that stores that type in a deque will be initialized.
+- You can initialize a queue with an already-populated container of type `list`, `vector` or `deque`. The queue will then contain all the elements that were in that container.
+- Remember to separate the angled brackets! It should be `> >`, not `>>`. Many compilers will get confused if the brackets are together, because it looks like a stream insertion operator.
+---
+## STL queue example
+Once a queue is initialized, it's pretty straight-forward to use
+```c++
+#include <queue>
+#include <vector>
+#include <list>
+using namespace std;
+int main() {
+   queue<int, vector<int> > q1;
+   for (int i = 0; i < 5; i++)
+      q1.push(i);
+   queue<int, list<int> > q2;
+   while(!q1.empty()) {
+      q2.push(q1.front());
+      q1.pop();
+   }
+}
+```
+---
+## STL queue example
+As you can see, dequeuing elements from one queue into another is done in two steps:
+- first, the front element of the first queue is retrieved with `front()` and `push`ed into the second
+- then the front element of the first queue is removed with `pop()`
+
+Also note that it's allowed even though the two queues use different inner containers (the first uses a vector and the second a list), because both **store** ints.
+---
