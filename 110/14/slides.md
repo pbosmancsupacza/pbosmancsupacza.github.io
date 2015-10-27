@@ -91,7 +91,7 @@ throw 1;
 or:
 ```c++
 float inaccuratePi = 3.14;
-throw pi;
+throw inaccuratePi;
 ```
 
 ---
