@@ -1,4 +1,5 @@
 class:middle
+background-image:url(./i/recursion.jpg)
 # Recursion
 ---
 ## Recursion
