@@ -105,9 +105,6 @@ void foo(int n) {
 ```
 The initial state is not part of the recursive function (why?), but if we call `foo` with, for example, `n` = 6, then that is the initial state. (We generally don't care as much about initial states, though, because recursive functions are usually designed to be functions, where we shouldn't expect to have control over how they get called initially.)
 ---
-class:middle
-# Using recursion - why and how
----
 ## Why should you use recursion?
 Recursion is actually never *necessary* to solve a problem. Anything you can do with recursion, you can also do iteratively. In fact, recursion is less efficient than iteration, because each recursive call requires far more overhead than an iteration of a loop.
 
