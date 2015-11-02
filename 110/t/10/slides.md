@@ -280,12 +280,6 @@ You want to write a recursive function that will reverse a linked list.
 *Reverse the rest of the list, and put the first element at the end.*
 --
 
-- You'll also need to fix the linked list's `head` member variable - ideally when the recursion is done. Is it *really* practical to defer this to only the original step though?
---
-
-*Not really. No specific recursive call knows whether it's the first, so it's better to treat them all the same.*
---
-
 - Write the code. Hint: use the return value to keep track of the new head. It helps.
 ---
 # Questions
