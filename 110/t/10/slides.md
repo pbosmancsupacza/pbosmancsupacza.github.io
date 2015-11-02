@@ -286,22 +286,20 @@ You want to write a recursive function that will reverse a linked list.
 *Not really. No specific recursive call knows whether it's the first, so it's better to treat them all the same.*
 --
 
-- Write the code.
+- Write the code. Hint: use the return value to keep track of the new head. It helps.
 ---
 # Questions
 
 ```c++
-void LinkedList<T>::reverse(Node *n) {
-   if (n == 0) return;
-   Node *rest = n->next;
-   reverse(rest);
-   head = rest;
+Node* LinkedList<T>::reverse(Node *n) {
+   if (n == 0 || n->next == 0) return n;
+   Node *reverseHead = reverse(n->next);
+   n->next->next = n; // n->next is now at end of list
    n->next = 0;
-   if (rest) {
-      for (; rest->next != 0; rest = rest->next);
-      rest->next = n;
-   } else
-      head = n;
+   return reverseHead;
+}
+void LinkedList<T>::reverse() {
+   head = reverse(head);
 }
 ```
 .nop[*]
