@@ -1,4 +1,34 @@
 class:middle
+#Other stuff
+---
+### Ampersand
+What does the ampersand (&) mean in this context?
+```c++
+int x = 10;
+int *p = &x;
+```
+--
+
+What about this context?
+```c++
+void foo(int &x) {
+   x = 10;
+}
+```
+---
+### Allocating a pointer in a function
+Is this valid?
+```c++
+int* foo() {
+   int five = 5;
+   return &five;
+}
+```
+--
+
+Why not?
+---
+class:middle
 # Recursion
 ---
 ### Recursion
