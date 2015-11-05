@@ -15,6 +15,13 @@ void foo(int &x) {
    x = 10;
 }
 ```
+--
+
+Can we do this?
+```c++
+void foo(int *&p) {
+}
+```
 ---
 ### Allocating a pointer in a function
 Is this valid?
@@ -26,7 +33,20 @@ int* foo() {
 ```
 --
 
-Why not?
+What about this?
+```c++
+int* addressOf(int x) {
+   return &x;
+}
+```
+--
+
+And this?
+```c++
+int *addressOf(int &x) {
+   return &x;
+}
+```
 ---
 class:middle
 # Recursion
